@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
-import "./ShopingCart.css";
-import "../Components/Product.css";
 import CurrencyFormat from "react-currency-format";
 import { Link } from "react-router-dom";
 import { basketTotal } from "../Files/reducer";
-import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
 import { FormControl, MenuItem, Select } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import { REMOVE_FROM_BASKET, selectBasket } from "../redux/slices/basketSlice";
+import { REMOVE_FROM_BASKET } from "../redux/slices/basketSlice";
 import { SET_REDIRECT_TO_CHECKOUT } from "../redux/slices/userSlice";
 import { selectUser } from "../redux/slices/userSlice";
 import useStateValue from "../Files/StateProvider";
+import "./ShopingCart.css";
+import "../Components/Product.css";
 
 const ShopingCart = () => {
-  // const basket = useSelector(selectBasket);
   const [{ basket }, dispatch] = useStateValue();
   const [localBasket, setLocalBasket] = useState(
     localStorage.getItem("basket")

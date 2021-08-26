@@ -8,16 +8,19 @@ import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import store from "./redux/store";
 import "./index.css";
+import ThemeWrapper from "./Files/Mui/ThemeWrapper";
 
 let RootDirectory = document.getElementById("root");
 
 ReactDOM.render(
   <React.StrictMode>
-    <StateProvider reducer={reducer} initialState={initialState}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </StateProvider>
+    <ThemeWrapper>
+      <StateProvider reducer={reducer} initialState={initialState}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </StateProvider>
+    </ThemeWrapper>
   </React.StrictMode>,
   RootDirectory
 );

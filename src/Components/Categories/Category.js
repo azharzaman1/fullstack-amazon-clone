@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Card, Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { db } from "../Files/firebase";
-import useStateValue from "../Files/StateProvider";
 import { useSelector } from "react-redux";
-import { selectFetchedUserDetails } from "../redux/slices/fetchedDetailsSlice";
+import { selectFetchedUserDetails } from "../../redux/slices/fetchedDetailsSlice";
 
 const Product = ({
   categotyTitle,
@@ -26,9 +24,19 @@ const Product = ({
 }) => {
   const fetchedUserDetails = useSelector(selectFetchedUserDetails);
 
+  const theme = useTheme();
+  const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
+  const isBelow500px = useMediaQuery("(max-width:500px)");
+
   return (
-    <div className={`category ${row2CategoryClass && "row2__category"}`}>
-      <div className="category__content">
+    <Grid
+      item
+      xs={isBelow500px ? 12 : 6}
+      sm={6}
+      md={3}
+      className={`category ${row2CategoryClass && "row2__category"}`}
+    >
+      <Card className="category__content">
         <h3 className="categoty__title">{categotyTitle}</h3>
         {specialBlocksCat && (
           <div className="user__Avatar">
@@ -42,7 +50,9 @@ const Product = ({
         {!needBlocksInCategory ? (
           <Link to={redirectUrl}>
             <div
-              className="category__image"
+              className={`category__image ${
+                isBelow500px && "category__imageMobile"
+              } ${isTablet && "category__imageTablet"}`}
               style={{ backgroundImage: `url(${imgUrl})` }}
             />
           </Link>
@@ -58,11 +68,11 @@ const Product = ({
             </div>
           </div>
         )}
-        <Link className="redirectLink" to="/order-placed-notification">
-          {linkText}
-        </Link>
-      </div>
-    </div>
+        <div className="category__Link">
+          <Link className=" redirectLink">{linkText}</Link>
+        </div>
+      </Card>
+    </Grid>
   );
 };
 

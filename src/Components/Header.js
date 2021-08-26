@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./Header.css";
 import SearchIcon from "@material-ui/icons/Search";
 import AmazonLogo from "./files/logo.png";
 import EnglishFlag from "./files/english.png";
@@ -8,14 +7,27 @@ import {
   ShoppingBasket,
   PersonPinCircle,
 } from "@material-ui/icons";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import Dropdown from "./Dropdown";
 import useStateValue from "../Files/StateProvider";
 import { Link } from "react-router-dom";
-import { auth, db } from "../Files/firebase";
+import { auth } from "../Files/firebase";
 import { selectUser } from "../redux/slices/userSlice";
 import { useSelector } from "react-redux";
-import { selectBasket } from "../redux/slices/basketSlice";
+import {
+  AppBar,
+  Grid,
+  makeStyles,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core";
+import "./Header.css";
+
+const useStyles = makeStyles((theme) => ({
+  appbar: {
+    backgroundColor: theme.palette.background.default,
+    padding: " .5rem 1rem",
+  },
+}));
 
 const Header = ({ displayName, countryName, basketItems }) => {
   const currentUser = useSelector(selectUser);
@@ -33,85 +45,150 @@ const Header = ({ displayName, countryName, basketItems }) => {
     setLocalBasket(JSON.parse(localStorage.getItem("basket")));
   }, [basket]);
 
+  const c = useStyles();
+
+  const theme = useTheme();
+  const isDesktop = useMediaQuery("(min-width:960px)");
+  const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+
+  console.log("Desk", isDesktop && isDesktop);
+  console.log("Tab", isTablet && !isMobile ? true : false);
+  console.log("Mob", isMobile && isMobile);
+
   return (
-    <div className="header flexRow between center">
-      <div className="header__LogoLocation flexRow center">
-        <Link to="/" className="header__logo">
-          <img src={AmazonLogo} alt="Amazon" />
-        </Link>
+    <AppBar position="static" className={c.appbar}>
+      <Grid container className="header" alignItems="center" spacing={3}>
+        <Grid item className="header__LogoLocation">
+          <Grid container>
+            <Link to="/" className="header__logo">
+              <img src={AmazonLogo} alt="Amazon" width="95px" />
+            </Link>
+            <Grid item>
+              {countryName !== "" && (
+                <Grid item className="header__delivery flexRow">
+                  <PersonPinCircle className="locationIcon" />
+                  <div className="flexColumn center pointer">
+                    <span className="headerNav__optionLineOne">Deliver to</span>
+                    <span className="headerNav__optionLineTwo boldText">
+                      {countryName}
+                    </span>
+                  </div>
+                </Grid>
+              )}
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid xs item id="header__search">
+          <Grid
+            className="header__search"
+            container
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Grid item className="headerSearchSide__sections cats pointer">
+              <Grid
+                container
+                alignItems="center"
+                justifyContent="center"
+                style={{ height: "100%" }}
+              >
+                <span>All</span>
+              </Grid>
+            </Grid>
+            <Grid item xs>
+              <input
+                className="headerSearchBar"
+                onFocus={() => {
+                  document
+                    .getElementById("header__search")
+                    .classList.add("header__searchBarActive");
+                }}
+                onChange={() => {
+                  document
+                    .getElementById("header__search")
+                    .classList.remove("header__searchBarActive");
+                }}
+                type="text"
+              />
+            </Grid>
+            <Grid item className="headerSearchSide__sections search pointer">
+              <Grid
+                container
+                alignItems="center"
+                justifyContent="center"
+                style={{ height: "100%" }}
+              >
+                <SearchIcon fontSize="small" />
+              </Grid>
+            </Grid>
+          </Grid>
 
-        {countryName !== "" && (
-          <div className="header__delivery flexRow">
-            <PersonPinCircle className="locationIcon" />
-            <div className="flexColumn center pointer">
-              <span className="headerNav__optionLineOne">Deliver to</span>
-              <span className="headerNav__optionLineTwo">{countryName}</span>
-            </div>
-          </div>
-        )}
-      </div>
-      <div className="header__search flexRow evenly center" id="header__search">
-        <h3 onClick={() => setShow(!show)} className="headerSearch__listOpener">
-          <span>{listCurrentValue}</span> <ArrowDropDownIcon />
-        </h3>
+          {show && <Dropdown />}
+        </Grid>
+        <Grid item className="header__nav">
+          <Grid
+            container
+            alignItems="center"
+            justifyContent="space-between"
+            spacing={isMobile ? 1 : 2}
+          >
+            <Grid item className="headerNav__languages pointer">
+              <img src={EnglishFlag} alt="EN" />
+              <KeyboardArrowDown />
+            </Grid>
+            {!isMobile && (
+              <>
+                <Grid
+                  item
+                  onClick={() => {
+                    setShowLoginDropDown(!showLoginDropDown);
+                  }}
+                  className="headerNav__option headerNav__loginOption borderOnHover flexColumn"
+                >
+                  {!currentUser ? (
+                    <span className="headerNav__optionLineOne signIn marginNeg pointer">
+                      Hello Guest, Sign In
+                    </span>
+                  ) : (
+                    <span className="headerNav__optionLineOne signIn marginNeg pointer">
+                      Hi, {displayName}
+                    </span>
+                  )}
+                  <div>
+                    <span className="headerNav__optionLineTwo pointer boldText">
+                      Accounts & Lists{" "}
+                      <KeyboardArrowDown className="signInArrow" />
+                    </span>
+                  </div>
+                </Grid>
+                {showLoginDropDown && <LoginDropDown />}
+              </>
+            )}
 
-        {show && <Dropdown />}
-
-        <input
-          onFocus={() => {
-            document
-              .getElementById("header__search")
-              .classList.add("header__searchBarActive");
-          }}
-          onChange={() => {
-            document
-              .getElementById("header__search")
-              .classList.remove("header__searchBarActive");
-          }}
-          type="text"
-        />
-        <span className="searchIcon pointer">
-          <SearchIcon />
-        </span>
-      </div>
-      <div className="header__nav between flexRow center">
-        <div className="headerNav__languages pointer">
-          <img src={EnglishFlag} alt="EN" />
-          <KeyboardArrowDown />
-        </div>
-        <div
-          onClick={() => {
-            setShowLoginDropDown(!showLoginDropDown);
-          }}
-          className="headerNav__option headerNav__loginOption borderOnHover flexColumn"
-        >
-          {!currentUser ? (
-            <span className="headerNav__optionLineOne signIn marginNeg pointer">
-              Hello Guest, Sign In
-            </span>
-          ) : (
-            <span className="headerNav__optionLineOne signIn marginNeg pointer">
-              Hi, {displayName}
-            </span>
-          )}
-
-          <span className="headerNav__optionLineTwo pointer">
-            Accounts & Lists <KeyboardArrowDown className="signInArrow" />
-          </span>
-        </div>
-        {showLoginDropDown && <LoginDropDown />}
-        <div className="headerNav__option borderOnHover flexColumn pointer">
-          <span className="headerNav__optionLineOne">Returns</span>
-          <span className="headerNav__optionLineTwo">& Orders</span>
-        </div>
-        <Link to="/cart" className="headerNav__basket pointer">
-          <ShoppingBasket className="basketIcon" />
-          <span className="headerNav__optionLineTwo basketCount">
-            {basket.length > 0 ? basket.length : basketItems}
-          </span>
-        </Link>
-      </div>
-    </div>
+            {isDesktop && (
+              <Grid
+                item
+                className="headerNav__option borderOnHover flexColumn pointer"
+              >
+                <span className="headerNav__optionLineOne">Returns</span>
+                <span className="headerNav__optionLineTwo  boldText">
+                  & Orders
+                </span>
+              </Grid>
+            )}
+            <Grid item className="headerNav__basket">
+              <Link to="/cart" className=" pointer">
+                <ShoppingBasket className="basketIcon" />
+                <span className="headerNav__optionLineTwo  boldText basketCount">
+                  {basket.length > 0 ? basket.length : basketItems}
+                </span>
+              </Link>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </AppBar>
   );
 };
 

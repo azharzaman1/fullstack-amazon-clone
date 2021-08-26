@@ -16,14 +16,12 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutPayment from "./Pages/CheckoutPayment";
 import OrderPlacedSuccssfully from "./Pages/OrderPlacedSuccssfully";
 import MyOrders from "./Pages/MyOrders";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { SET_FETCHED_DETAILS } from "./redux/slices/fetchedDetailsSlice";
-import { selectBasket } from "./redux/slices/basketSlice";
 import { SET_USER } from "./redux/slices/userSlice";
-// import Copyright from "./Components/Copyright";
+import { CssBaseline } from "@material-ui/core";
 
 const App = () => {
-  // const basket = useSelector(selectBasket);
   const [{ basket }] = useStateValue();
   const dispatch = useDispatch();
   const [fetchedData, setFetchedData] = useState({});
@@ -188,6 +186,7 @@ const App = () => {
             {/* <Copyright /> */}
           </Route>
         </Switch>
+        <CssBaseline />
       </div>
     </Router>
   );
