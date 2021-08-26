@@ -1,17 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { Suspense } from "react";
 import HeroSection from "../Components/HeroSection";
-import "./Homepage.css";
-import CategoriesRow1 from "../Components/CategoriesRow1";
-import CategoriesRow2 from "../Components/CategoriesRow2";
-import CategoriesRow3 from "../Components/CategoriesRow3";
-import CategoriesRow4 from "../Components/CategoriesRow4";
+import CategoriesRow1 from "../Components/Categories/CategoriesRow1";
 import Product from "../Components/Product";
 import DoneIcon from "@material-ui/icons/Done";
 import CardGiftcardIcon from "@material-ui/icons/CardGiftcard";
 import ProductsSlider from "../Components/ProductsSlider";
 import useStateValue from "../Files/StateProvider";
 import CurrencyFormat from "react-currency-format";
-import { Link } from "react-router-dom";
 import { basketTotal } from "../Files/reducer";
 import {
   selectUser,
@@ -19,75 +14,187 @@ import {
 } from "../redux/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { selectBasket } from "../redux/slices/basketSlice";
+import { Link } from "react-router-dom";
+import {
+  Container,
+  makeStyles,
+  useTheme,
+  useMediaQuery,
+} from "@material-ui/core";
+import CategoriesRow from "../Components/Categories/CategoriesRow";
+import Category from "../Components/Categories/Category";
+import "./Homepage.css";
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    padding: "0",
+    backgroundColor: "#fff",
+  },
+}));
 
 const Homepage = () => {
-  // const basket = useSelector(selectBasket);
+  const c = useStyles();
   const [{ basket }] = useStateValue();
+
+  const theme = useTheme();
+  const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
+  const isBelow500px = useMediaQuery("(max-width:500px)");
 
   return (
     <div className="home">
-      <HeroSection />
+      <Container maxWidth="lg" className={`${c.container} homepageContainer`}>
+        <HeroSection />
 
-      <CategoriesRow1 />
-      <CategoriesRow2 categoryRowSpecificClass="categories__row2" />
+        <CategoriesRow1 />
 
-      {basket.length > 0 && <BasketLiveStatusBar />}
+        <CategoriesRow
+          className={`categories__row2 ${
+            isTablet && "categories__row2Tablet"
+          } ${isBelow500px && "categories__row2Mobile"}`}
+        >
+          <Category
+            categotyTitle="Start on your holiday list early"
+            imgUrl="https://i.ibb.co/1z4BjqT/start.jpg"
+            linkText="Shop Now"
+          />
+          <Category
+            categotyTitle="Shop Laptops & Tablets"
+            imgUrl="https://i.ibb.co/bK9hDHp/gg.jpg"
+            linkText="Shop Now"
+          />
+          <Category
+            categotyTitle="Deals & Promotions"
+            imgUrl="https://i.ibb.co/gz6rm7h/promoti.jpg"
+            linkText="Shop Now"
+          />
+          <Category
+            categotyTitle="Explore home bedding"
+            imgUrl="https://i.ibb.co/kmS9SZW/abs.jpg"
+            linkText="Shop Now"
+          />
+        </CategoriesRow>
 
-      <div className="products__row products__row1 flexRow center">
-        <Product
-          id="1255345"
-          title="Dell Latitude 2415p | 4GB | 320GB | UHD Display | Life-time Guarentee"
-          price={199.99}
-          imgUrl="https://i.ibb.co/Ry17Zy6/5.jpg"
-          rating={4}
-        />
-        <Product
-          id="255325"
-          title="HP Elitebook 8440p | 6GB | 500GB | UHD Display | 2 Year Guarentee"
-          price={499.99}
-          imgUrl="https://i.ibb.co/kmCKqPx/55.jpg"
-          rating={5}
-        />
-        <Product
-          id="432453543"
-          title="HP Elitebook 9111p | 12GB | 1TB | UHD Display | 5 Year Guarentee"
-          price={799.99}
-          imgUrl="https://i.ibb.co/Zx77kkW/555.jpg"
-          rating={3}
-        />
-        <Product
-          id="4323543"
-          title="Dell Latitude 4450p | 6GB | 512GB | UHD Display | Life-time Guarentee"
-          price={999.99}
-          imgUrl="https://i.ibb.co/bBxHMp8/5555.jpg"
-          rating={5}
-        />
-      </div>
-      <ProductsSlider title="Discover Amazon" linkText="Click to learn more">
-        <ProductsSliderProduct imgUrl="https://i.ibb.co/gg3XGbW/1.jpg" />
-        <ProductsSliderProduct imgUrl="https://i.ibb.co/pWmHyff/2.jpg" />
-        <ProductsSliderProduct imgUrl="https://i.ibb.co/W33b1Mj/3.png" />
-        <ProductsSliderProduct imgUrl="https://i.ibb.co/ctMdYKp/4.jpg" />
-        <ProductsSliderProduct imgUrl="https://i.ibb.co/SNxDy8C/5.jpg" />
-        <ProductsSliderProduct imgUrl="https://i.ibb.co/df1sZvT/6.jpg" />
-      </ProductsSlider>
+        <CategoriesRow className={`categories__row3`}>
+          <Category
+            categotyTitle="Start on your holiday list early"
+            imgUrl="https://i.ibb.co/1z4BjqT/start.jpg"
+            linkText="Shop Now"
+          />
+          <Category
+            categotyTitle="Gaming Accessories"
+            imgUrl="https://i.ibb.co/SKXLw4n/g.jpg"
+            linkText="Shop Now"
+            row2CategoryClass
+          />
+          <Category
+            categotyTitle="Computers & Accessories"
+            imgUrl="https://i.ibb.co/H45ZtjG/cas.jpg"
+            linkText="Shop Now"
+            row2CategoryClass
+          />
 
-      <ProductsSlider
-        sliderSpecificClass="topSellers__productsSlider"
-        sliderContentSpecificClass="sliderTopSeller__content"
-        title="Amazon Top Sellers"
-        linkText="Shop now"
-      >
-        <ProductsSliderProduct imgUrl="https://i.ibb.co/Dff2h1n/pro1.jpg" />
-        <ProductsSliderProduct imgUrl="https://i.ibb.co/tZW5vFg/pro2.jpg" />
-        <ProductsSliderProduct imgUrl="https://i.ibb.co/3TK3ZY8/pro3.jpg" />
-        <ProductsSliderProduct imgUrl="https://i.ibb.co/qkfLfMT/pro4.jpg" />
-        <ProductsSliderProduct imgUrl="https://i.ibb.co/GngnzXq/pro5.jpg" />
-        <ProductsSliderProduct imgUrl="https://i.ibb.co/Wz27nLF/pro6.jpg" />
-      </ProductsSlider>
+          <Category
+            categotyTitle="Holiday deals"
+            imgUrl="https://i.ibb.co/PxPtBY6/hd.jpg"
+            linkText="Shop Now"
+            row2CategoryClass
+          />
+        </CategoriesRow>
 
-      <CategoriesRow3 />
-      <CategoriesRow4 />
+        <CategoriesRow className={`categories__row4 `}>
+          <Category
+            categotyTitle="Start on your holiday list early"
+            imgUrl="https://i.ibb.co/1z4BjqT/start.jpg"
+            linkText="Shop Now"
+            row2CategoryClass
+          />
+          <Category
+            categotyTitle="Explore home bedding"
+            imgUrl="https://i.ibb.co/kmS9SZW/abs.jpg"
+            linkText="Shop Now"
+            row2CategoryClass
+          />
+
+          <Category
+            categotyTitle="Deals & Promotions"
+            imgUrl="https://i.ibb.co/gz6rm7h/promoti.jpg"
+            linkText="Shop Now"
+            row2CategoryClass
+          />
+          <Category
+            categotyTitle="Gaming Accessories"
+            imgUrl="https://i.ibb.co/SKXLw4n/g.jpg"
+            linkText="Shop our full selection"
+          />
+        </CategoriesRow>
+
+        {/* <Suspense fallback={<h1>Loading ...</h1>}> */}
+
+        {/* </Suspense> */}
+
+        {/* 
+
+        {basket.length > 0 && <BasketLiveStatusBar />}
+
+        <div className="products__row products__row1 flexRow center">
+          <Product
+            id="1255345"
+            title="Dell Latitude 2415p | 4GB | 320GB | UHD Display | Life-time Guarentee"
+            price={199.99}
+            imgUrl="https://i.ibb.co/Ry17Zy6/5.jpg"
+            rating={4}
+          />
+          <Product
+            id="255325"
+            title="HP Elitebook 8440p | 6GB | 500GB | UHD Display | 2 Year Guarentee"
+            price={499.99}
+            imgUrl="https://i.ibb.co/kmCKqPx/55.jpg"
+            rating={5}
+          />
+          <Product
+            id="432453543"
+            title="HP Elitebook 9111p | 12GB | 1TB | UHD Display | 5 Year Guarentee"
+            price={799.99}
+            imgUrl="https://i.ibb.co/Zx77kkW/555.jpg"
+            rating={3}
+          />
+          <Product
+            id="4323543"
+            title="Dell Latitude 4450p | 6GB | 512GB | UHD Display | Life-time Guarentee"
+            price={999.99}
+            imgUrl="https://i.ibb.co/bBxHMp8/5555.jpg"
+            rating={5}
+          />
+        </div>
+        <ProductsSlider title="Discover Amazon" linkText="Click to learn more">
+          <ProductsSliderProduct imgUrl="https://i.ibb.co/gg3XGbW/1.jpg" />
+          <ProductsSliderProduct imgUrl="https://i.ibb.co/pWmHyff/2.jpg" />
+          <ProductsSliderProduct imgUrl="https://i.ibb.co/W33b1Mj/3.png" />
+          <ProductsSliderProduct imgUrl="https://i.ibb.co/ctMdYKp/4.jpg" />
+          <ProductsSliderProduct imgUrl="https://i.ibb.co/SNxDy8C/5.jpg" />
+          <ProductsSliderProduct imgUrl="https://i.ibb.co/df1sZvT/6.jpg" />
+        </ProductsSlider>
+
+        <ProductsSlider
+          sliderSpecificClass="topSellers__productsSlider"
+          sliderContentSpecificClass="sliderTopSeller__content"
+          title="Amazon Top Sellers"
+          linkText="Shop now"
+        >
+          <ProductsSliderProduct imgUrl="https://i.ibb.co/Dff2h1n/pro1.jpg" />
+          <ProductsSliderProduct imgUrl="https://i.ibb.co/tZW5vFg/pro2.jpg" />
+          <ProductsSliderProduct imgUrl="https://i.ibb.co/3TK3ZY8/pro3.jpg" />
+          <ProductsSliderProduct imgUrl="https://i.ibb.co/qkfLfMT/pro4.jpg" />
+          <ProductsSliderProduct imgUrl="https://i.ibb.co/GngnzXq/pro5.jpg" />
+          <ProductsSliderProduct imgUrl="https://i.ibb.co/Wz27nLF/pro6.jpg" />
+        </ProductsSlider>
+        <Suspense fallback={<h1>Loading ...</h1>}>
+          <CategoriesRow3 />
+        </Suspense>
+        <Suspense fallback={<h1>Loading ...</h1>}>
+          <CategoriesRow4 />
+        </Suspense> */}
+      </Container>
     </div>
   );
 };

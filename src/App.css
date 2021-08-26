@@ -5,11 +5,11 @@
 }
 
 body {
-  background-color: #eaeded;
+  background-color: #eaeded !important;
 }
 
 img {
-  object-fit: contain;
+  /* object-fit: contain; */
 }
 
 a {
@@ -58,4 +58,13 @@ li {
   text-decoration: underline;
   color: #cd6438;
   text-decoration-color: #cd6438;
+}
+
+span {
+  font-size: 11px;
+}
+
+span.boldText {
+  font-size: 14px;
+  font-weight: 400;
 }

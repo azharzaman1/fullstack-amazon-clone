@@ -1,15 +1,17 @@
 import React from "react";
 import Category from "./Category";
 import { Link } from "react-router-dom";
-import useStateValue from "../Files/StateProvider";
-import { selectUser } from "../redux/slices/userSlice";
 import { useSelector } from "react-redux";
+import { Grid } from "@material-ui/core";
+import { selectUser } from "../../redux/slices/userSlice";
+import "./Categories.css";
+import CategoriesRow from "./CategoriesRow";
 
-const CategoriesRow = () => {
+const CategoriesRow1 = () => {
   const currentUser = useSelector(selectUser);
 
   return (
-    <div className="categories__row categories__row1 flexRow between">
+    <CategoriesRow className="categories__row1">
       {currentUser && (
         <Category
           specialBlocksCat
@@ -41,7 +43,13 @@ const CategoriesRow = () => {
         linkText="Shop Now"
       />
       {!currentUser && (
-        <div className="signin__promotion flexColumn">
+        <Grid
+          xs={6}
+          sm={6}
+          md={3}
+          item
+          className="signin__promotion flexColumn"
+        >
           <div className="signin flexColumn">
             <h3>Sign in for the best experience</h3>
             <Link to="/auth/signin">
@@ -55,10 +63,10 @@ const CategoriesRow = () => {
             }}
             className="promotion"
           ></div>
-        </div>
+        </Grid>
       )}
-    </div>
+    </CategoriesRow>
   );
 };
 
-export default CategoriesRow;
+export default CategoriesRow1;
