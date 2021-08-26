@@ -1,0 +1,240 @@
+.shopingCart {
+  height: max-content;
+  padding: 35px 15px 50px;
+}
+
+.shopingCart__left {
+  width: 83%;
+  background-color: white;
+  padding: 0 0 80px 0;
+}
+
+.shopingCart__right {
+  width: 17%;
+}
+
+.shopingCart__leftHeader {
+  margin-right: 5px;
+  padding: 15px;
+  font-size: 25px;
+  font-weight: 600;
+  color: rgb(46, 46, 46);
+}
+
+.shopingCart__leftHeader > h3 {
+  flex: 1;
+  text-align: right;
+  font-size: 13.5px;
+  font-weight: 400;
+  margin-right: 0.35rem;
+  margin-top: 2.4rem;
+}
+
+.shopingCart__emptyTagline {
+  padding: 5px;
+}
+
+.shopingCart__deselectAll {
+  font-size: 13.5px;
+  font-weight: 300;
+  margin-top: 0.5rem;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.shopingCart__emptyStatus {
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+}
+
+.shopingCart__emptyStatus > h3 {
+  font-size: 15.5px;
+  color: rgb(77, 76, 76);
+}
+
+.shopingCart__emptyReturnBox > a > svg {
+  font-size: 25px;
+  color: #253447;
+  margin-top: 0.65rem;
+  margin-bottom: 0.5rem;
+}
+
+.shopingCart__right {
+  margin-right: 3.15rem;
+}
+
+.subtotal {
+  width: 260px;
+  height: 100px;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-left: 1.1rem;
+  position: sticky;
+  top: 4.5rem;
+}
+
+.subtotal__info > strong {
+  margin-left: 0.5rem;
+}
+
+.subtotal__gift {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.subtotal__gift > input {
+  margin-right: 0.25rem;
+}
+
+.subtotal > a > button {
+  background-color: #f1c657;
+  border-radius: 2px;
+  width: 100%;
+  height: 30px;
+  margin-top: 10px;
+  border: 1px solid;
+  border-color: #a88734 #9c7e31 #846a29;
+  color: #111;
+  cursor: pointer;
+}
+
+.subtotal > a > button:hover {
+  background-color: #f0c14b;
+}
+
+/* Shoping Cart Products Styling */
+
+.shopingCart__productsList {
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.productsList__subTotal {
+  text-align: right;
+  margin-top: 0.65rem;
+  margin-right: 1.25rem;
+}
+
+.productsList__subTotal > span {
+  font-size: 17.5px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+}
+
+.productsList__subTotal > strong {
+  color: rgb(37, 37, 37);
+  font-size: 19.5px;
+  letter-spacing: 0.4px;
+  margin-left: 0.35rem;
+}
+
+.shopingCart__product {
+  padding: 0.85rem 1rem;
+  margin-right: 20px;
+  border-top: 1px solid rgb(221, 221, 221);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+
+.shopingCart__product:last-child {
+  border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.shopingCart__productInfo {
+  margin-left: 2rem;
+}
+
+.shopingCart__productImage {
+  width: 16%;
+}
+.shopingCart__productTitle {
+  margin-top: 0.55rem;
+  font-weight: 600;
+  font-size: 16.5px;
+  letter-spacing: 0.45px;
+}
+
+.shopingCart__productPrice {
+  color: rgb(37, 37, 37);
+  margin-top: 0.45rem;
+  flex: 1;
+  text-align: right;
+  margin-right: 2.5rem;
+  font-size: 18px;
+}
+
+.shopingCart__productRating {
+  margin-top: 0.4rem;
+  cursor: pointer;
+}
+
+.productQty__dropdown {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  margin: 0.75rem 0 !important;
+  width: 7rem !important;
+}
+
+.productQty__dropdown > span {
+  margin-right: 0.6rem;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.productQty__select {
+  display: flex !important;
+  align-items: center !important;
+  border-radius: 6px !important;
+  overflow: hidden;
+}
+
+.menuItem {
+  font-size: 13px !important;
+  font-weight: 300 !important;
+}
+
+.productQty__dropdown .MuiOutlinedInput-input {
+  font-size: 15px !important;
+  background-color: #edeff2 !important;
+  padding-top: 7px !important;
+  padding-left: 10px !important;
+  padding-bottom: 7px !important;
+}
+
+.productQty__dropdown .MuiOutlinedInput-input:hover {
+  background-color: #dfe2e7 !important;
+}
+
+.gift {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.gift > input {
+  margin-right: 0.3rem;
+}
+
+.gift > h3 {
+  font-weight: 400;
+  font-size: 13.5px;
+}
+
+.shopingCart__productButton {
+  font-size: 13.5px;
+  font-weight: 400;
+  color: #1196ab;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.shopingCart__productButton:hover {
+  text-decoration: underline;
+}
