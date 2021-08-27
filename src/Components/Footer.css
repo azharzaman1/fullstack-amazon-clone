@@ -18,11 +18,19 @@
 
 .footer__top {
   background-color: #232f3e;
-  padding: 3.1rem 13rem 3.5rem;
+  padding: 3.1rem 8rem 3.5rem;
   color: white;
   font-size: 14px;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.footer__top__belowDesktop {
+  padding: 3.1rem 3rem 3.5rem;
+}
+
+.footer__top__belowDesktop .footerTop__linksSec {
+  margin-top: 1rem;
 }
 
 .footerTop__linksSec {
@@ -56,7 +64,7 @@
 .footer__main {
   background-color: #131a22;
   max-width: 100%;
-  padding: 2.75rem 14rem 2rem;
+  padding: 2.75rem 7rem 2rem;
   color: white;
   justify-content: space-evenly;
 }
@@ -100,6 +108,10 @@
   padding: 0 16rem 1.75rem;
   max-width: 100%;
   justify-content: center;
+}
+
+.footer__copyrightSec__belowDesktop {
+  padding: 1.5rem 2rem;
 }
 
 .footer__copyrightSec > a {

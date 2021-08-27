@@ -28,13 +28,18 @@ import {
   HomeapageCatsRow3,
   HomeapageCatsRow4,
 } from "../Files/ProductCatsData";
-import "./Homepage.css";
 import ProductsRow from "../Components/Products/ProductsRow";
 import {
   HomeapageProductsRow1,
   HomeapageProductsRow2,
 } from "../Files/ProductsData";
 import { Heading } from "../Components/Components";
+import "./Homepage.css";
+import "../Components/Products/CartLiveStatusBar.css";
+import {
+  HomepageFeaturesSlider1Items,
+  HomepageProductsSlider1Items,
+} from "../Files/ProductsSlidersData";
 
 const CategoriesRow = React.lazy(() =>
   import("../Components/Categories/CategoriesRow")
@@ -113,6 +118,23 @@ const Homepage = () => {
           ))}
         </ProductsRow>
 
+        <ProductsSlider
+          sliderSpecificClass="topSellers__productsSlider"
+          sliderContentSpecificClass="sliderTopSeller__content"
+          title="Amazon Top Sellers"
+          linkText="Shop now"
+        >
+          {HomepageProductsSlider1Items?.map((item) => (
+            <ProductsSliderProduct key={item.imgUrl} imgUrl={item.imgUrl} />
+          ))}
+        </ProductsSlider>
+
+        <ProductsSlider title="Discover Amazon" linkText="Click to learn more">
+          {HomepageFeaturesSlider1Items?.map((item) => (
+            <ProductsSliderProduct key={item.imgUrl} imgUrl={item.imgUrl} />
+          ))}
+        </ProductsSlider>
+
         <Suspense fallback={<h1>Loading ...</h1>}>
           <CategoriesRow className={`categories__row3`}>
             {HomeapageCatsRow3?.map((cat) => (
@@ -137,37 +159,6 @@ const Homepage = () => {
             ))}
           </CategoriesRow>
         </Suspense>
-
-        {/* 
-
-        <ProductsSlider title="Discover Amazon" linkText="Click to learn more">
-          <ProductsSliderProduct imgUrl="https://i.ibb.co/gg3XGbW/1.jpg" />
-          <ProductsSliderProduct imgUrl="https://i.ibb.co/pWmHyff/2.jpg" />
-          <ProductsSliderProduct imgUrl="https://i.ibb.co/W33b1Mj/3.png" />
-          <ProductsSliderProduct imgUrl="https://i.ibb.co/ctMdYKp/4.jpg" />
-          <ProductsSliderProduct imgUrl="https://i.ibb.co/SNxDy8C/5.jpg" />
-          <ProductsSliderProduct imgUrl="https://i.ibb.co/df1sZvT/6.jpg" />
-        </ProductsSlider>
-
-        <ProductsSlider
-          sliderSpecificClass="topSellers__productsSlider"
-          sliderContentSpecificClass="sliderTopSeller__content"
-          title="Amazon Top Sellers"
-          linkText="Shop now"
-        >
-          <ProductsSliderProduct imgUrl="https://i.ibb.co/Dff2h1n/pro1.jpg" />
-          <ProductsSliderProduct imgUrl="https://i.ibb.co/tZW5vFg/pro2.jpg" />
-          <ProductsSliderProduct imgUrl="https://i.ibb.co/3TK3ZY8/pro3.jpg" />
-          <ProductsSliderProduct imgUrl="https://i.ibb.co/qkfLfMT/pro4.jpg" />
-          <ProductsSliderProduct imgUrl="https://i.ibb.co/GngnzXq/pro5.jpg" />
-          <ProductsSliderProduct imgUrl="https://i.ibb.co/Wz27nLF/pro6.jpg" />
-        </ProductsSlider>
-        <Suspense fallback={<h1>Loading ...</h1>}>
-          <CategoriesRow3 />
-        </Suspense>
-        <Suspense fallback={<h1>Loading ...</h1>}>
-          <CategoriesRow4 />
-        </Suspense> */}
       </Container>
     </div>
   );
