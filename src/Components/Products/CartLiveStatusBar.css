@@ -34,7 +34,7 @@
 
 .basketLive__right {
   align-items: center;
-  padding: 0 0.75rem;
+  padding: 0.15rem 0.75rem;
 }
 
 .basketLive__right__belowDesktop {
@@ -43,6 +43,7 @@
 
 .basket__subtotal {
   align-items: center;
+  margin-top: 2px;
 }
 
 .basket__subtotal > h3 {
