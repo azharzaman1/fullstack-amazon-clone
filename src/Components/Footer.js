@@ -1,8 +1,14 @@
 import React from "react";
 import "./Footer.css";
 import { Link } from "react-scroll";
+import { Grid, useMediaQuery, useTheme } from "@material-ui/core";
 
 const Footer = () => {
+  const theme = useTheme();
+  const isDesktop = useMediaQuery("(min-width:960px)");
+  const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const isBelow500px = useMediaQuery("(max-width:500px)");
   return (
     <div className="footer">
       <Link to="scrollToTop__dest" smooth={true} duration={1000}>
@@ -11,9 +17,23 @@ const Footer = () => {
         </div>
       </Link>
 
-      <div className="footer__top flexColumn">
-        <div className="footerTop__linksSection flexRow">
-          <div className="footerTop__linksSec footerTop__linksSec1 flexColumn">
+      <div
+        className={`footer__top flexColumn ${
+          !isDesktop && "footer__top__belowDesktop"
+        }`}
+      >
+        <Grid
+          container
+          justifyContent="center"
+          className="footerTop__linksSection"
+        >
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={3}
+            className="footerTop__linksSec footerTop__linksSec1 flexColumn"
+          >
             <h3>Get to Know Us</h3>
             <a>Careers</a>
             <a>Blog</a>
@@ -22,8 +42,14 @@ const Footer = () => {
             <a>Amazon Devices</a>
             <a>Amazon Tours</a>
             <a>Careers</a>
-          </div>
-          <div className="footerTop__linksSec footerTop__linksSec2 flexColumn">
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={3}
+            className="footerTop__linksSec footerTop__linksSec2 flexColumn"
+          >
             <h3>Make Money with Us</h3>
             <a>Sell products on Amazon</a>
             <a>Sell apps on Amazon</a>
@@ -32,15 +58,27 @@ const Footer = () => {
             <a>Self-Publish with Us</a>
             <a>Host an Amazon Hub</a>
             <a>See More Make Money with Us</a>
-          </div>
-          <div className="footerTop__linksSec footerTop__linksSec3 flexColumn">
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={3}
+            className="footerTop__linksSec footerTop__linksSec3 flexColumn"
+          >
             <h3>Amazon Payment Products</h3>
             <a>Amazon Business Card</a>
             <a>Shop with Points</a>
             <a>Reload Your Balance</a>
             <a>Amazon Currency Converter</a>
-          </div>
-          <div className="footerTop__linksSec footerTop__linksSec4 flexColumn">
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={3}
+            className="footerTop__linksSec footerTop__linksSec4 flexColumn"
+          >
             <h3>Let Us Help You</h3>
             <a>Amazon and COVID-19</a>
             <a>Your Account</a>
@@ -49,147 +87,176 @@ const Footer = () => {
             <a>Returns & Replacements</a>
             <a>Amazon Assistant</a>
             <a>Help</a>
+          </Grid>
+        </Grid>
+      </div>
+      {isDesktop && (
+        <div className="footer__main flexRow">
+          <div className="amazon__servicesColumn flexColumn">
+            <AmazonService
+              head="Amazon Music"
+              desc="Stream millions of songs"
+            />
+            <AmazonService
+              head="Sell on Amazon"
+              desc="Start a Selling Account"
+            />
+            <AmazonService
+              head="Audible"
+              desc="Listen to Books & OriginalAudio Performances"
+            />
+            <AmazonService
+              head="Goodreads"
+              desc="Book reviews & recommendations	"
+            />
+            <AmazonService head="Zappos" desc="Shoes & Clothing" />
+          </div>
+
+          {/* 2 */}
+          <div className="amazon__servicesColumn flexColumn">
+            <AmazonService
+              head="Amazon Advertising"
+              desc="Find, attract, and engage customers"
+            />
+            <AmazonService
+              head="Amazon Business"
+              desc="Everything For Your Business"
+            />
+            <AmazonService
+              head="Book Depository"
+              desc="Books With Free
+            Delivery Worldwide"
+            />
+            <AmazonService
+              head="IMDb"
+              desc="Movies, TV
+            & Celebrities"
+            />
+            <AmazonService head="Ring" desc="Smart Home Security Systems" />
+          </div>
+
+          {/* 3 */}
+          <div className="amazon__servicesColumn flexColumn">
+            <AmazonService
+              head="Amazon Drive"
+              desc="Cloud storage from Amazon"
+            />
+            <AmazonService
+              head="AmazonGlobal"
+              desc="Ship Orders Internationally"
+            />
+            <AmazonService
+              head="Box Office Mojo"
+              desc="Find Movie
+            Box Office Data"
+            />
+            <AmazonService
+              head="IMDbPro"
+              desc="Get Info Entertainment
+            Professionals Need"
+            />
+            <AmazonService
+              head="	eero WiFi"
+              desc="Stream 4K Video in Every Room	"
+            />
+          </div>
+
+          {/* 4 */}
+          <div className="amazon__servicesColumn flexColumn">
+            <AmazonService
+              head="Amazon Music"
+              desc="Stream millions of songs"
+            />
+            <AmazonService
+              head="Sell on Amazon"
+              desc="Start a Selling Account"
+            />
+            <AmazonService
+              head="Audible"
+              desc="Listen to Books & OriginalAudio Performances"
+            />
+            <AmazonService
+              head="Goodreads"
+              desc="Book reviews & recommendations	"
+            />
+            <AmazonService head="Zappos" desc="Shoes & Clothing" />
+          </div>
+
+          {/* 5 */}
+          <div className="amazon__servicesColumn flexColumn">
+            <AmazonService
+              head="Amazon Advertising"
+              desc="Find, attract, and engage customers"
+            />
+            <AmazonService
+              head="Amazon Business"
+              desc="Everything For Your Business"
+            />
+            <AmazonService
+              head="Book Depository"
+              desc="Books With Free
+            Delivery Worldwide"
+            />
+            <AmazonService
+              head="IMDb"
+              desc="Movies, TV
+            & Celebrities"
+            />
+          </div>
+
+          {/* 6 */}
+          <div className="amazon__servicesColumn flexColumn">
+            <AmazonService
+              head="Amazon Drive"
+              desc="Cloud storage from Amazon"
+            />
+            <AmazonService
+              head="AmazonGlobal"
+              desc="Ship Orders Internationally"
+            />
+            <AmazonService
+              head="Box Office Mojo"
+              desc="Find Movie
+            Box Office Data"
+            />
+            <AmazonService
+              head="IMDbPro"
+              desc="Get Info Entertainment
+            Professionals Need"
+            />
+            <AmazonService
+              head="	eero WiFi"
+              desc="Stream 4K Video in Every Room	"
+            />
+          </div>
+
+          {/* 7 */}
+          <div className="amazon__servicesColumn flexColumn">
+            <AmazonService
+              head="Amazon Music"
+              desc="Stream millions of songs"
+            />
+            <AmazonService
+              head="Sell on Amazon"
+              desc="Start a Selling Account"
+            />
+            <AmazonService
+              head="Audible"
+              desc="Listen to Books & OriginalAudio Performances"
+            />
+            <AmazonService
+              head="Goodreads"
+              desc="Book reviews & recommendations	"
+            />
+            <AmazonService head="Zappos" desc="Shoes & Clothing" />
           </div>
         </div>
-      </div>
-
-      <div className="footer__main flexRow">
-        <div className="amazon__servicesColumn flexColumn">
-          <AmazonService head="Amazon Music" desc="Stream millions of songs" />
-          <AmazonService head="Sell on Amazon" desc="Start a Selling Account" />
-          <AmazonService
-            head="Audible"
-            desc="Listen to Books & OriginalAudio Performances"
-          />
-          <AmazonService
-            head="Goodreads"
-            desc="Book reviews & recommendations	"
-          />
-          <AmazonService head="Zappos" desc="Shoes & Clothing" />
-        </div>
-
-        {/* 2 */}
-        <div className="amazon__servicesColumn flexColumn">
-          <AmazonService
-            head="Amazon Advertising"
-            desc="Find, attract, and engage customers"
-          />
-          <AmazonService
-            head="Amazon Business"
-            desc="Everything For Your Business"
-          />
-          <AmazonService
-            head="Book Depository"
-            desc="Books With Free
-            Delivery Worldwide"
-          />
-          <AmazonService
-            head="IMDb"
-            desc="Movies, TV
-            & Celebrities"
-          />
-          <AmazonService head="Ring" desc="Smart Home Security Systems" />
-        </div>
-
-        {/* 3 */}
-        <div className="amazon__servicesColumn flexColumn">
-          <AmazonService head="Amazon Drive" desc="Cloud storage from Amazon" />
-          <AmazonService
-            head="AmazonGlobal"
-            desc="Ship Orders Internationally"
-          />
-          <AmazonService
-            head="Box Office Mojo"
-            desc="Find Movie
-            Box Office Data"
-          />
-          <AmazonService
-            head="IMDbPro"
-            desc="Get Info Entertainment
-            Professionals Need"
-          />
-          <AmazonService
-            head="	eero WiFi"
-            desc="Stream 4K Video in Every Room	"
-          />
-        </div>
-
-        {/* 4 */}
-        <div className="amazon__servicesColumn flexColumn">
-          <AmazonService head="Amazon Music" desc="Stream millions of songs" />
-          <AmazonService head="Sell on Amazon" desc="Start a Selling Account" />
-          <AmazonService
-            head="Audible"
-            desc="Listen to Books & OriginalAudio Performances"
-          />
-          <AmazonService
-            head="Goodreads"
-            desc="Book reviews & recommendations	"
-          />
-          <AmazonService head="Zappos" desc="Shoes & Clothing" />
-        </div>
-
-        {/* 5 */}
-        <div className="amazon__servicesColumn flexColumn">
-          <AmazonService
-            head="Amazon Advertising"
-            desc="Find, attract, and engage customers"
-          />
-          <AmazonService
-            head="Amazon Business"
-            desc="Everything For Your Business"
-          />
-          <AmazonService
-            head="Book Depository"
-            desc="Books With Free
-            Delivery Worldwide"
-          />
-          <AmazonService
-            head="IMDb"
-            desc="Movies, TV
-            & Celebrities"
-          />
-        </div>
-
-        {/* 6 */}
-        <div className="amazon__servicesColumn flexColumn">
-          <AmazonService head="Amazon Drive" desc="Cloud storage from Amazon" />
-          <AmazonService
-            head="AmazonGlobal"
-            desc="Ship Orders Internationally"
-          />
-          <AmazonService
-            head="Box Office Mojo"
-            desc="Find Movie
-            Box Office Data"
-          />
-          <AmazonService
-            head="IMDbPro"
-            desc="Get Info Entertainment
-            Professionals Need"
-          />
-          <AmazonService
-            head="	eero WiFi"
-            desc="Stream 4K Video in Every Room	"
-          />
-        </div>
-
-        {/* 7 */}
-        <div className="amazon__servicesColumn flexColumn">
-          <AmazonService head="Amazon Music" desc="Stream millions of songs" />
-          <AmazonService head="Sell on Amazon" desc="Start a Selling Account" />
-          <AmazonService
-            head="Audible"
-            desc="Listen to Books & OriginalAudio Performances"
-          />
-          <AmazonService
-            head="Goodreads"
-            desc="Book reviews & recommendations	"
-          />
-          <AmazonService head="Zappos" desc="Shoes & Clothing" />
-        </div>
-      </div>
-      <div className="footer__copyrightSec flexRow">
+      )}
+      <div
+        className={`footer__copyrightSec flexRow ${
+          !isDesktop && "footer__copyrightSec__belowDesktop"
+        }`}
+      >
         <a href="https://www.amazon.com/gp/help/customer/display.html?ie=UTF8&nodeId=508088&ref_=footer_cou">
           Conditions of Use
         </a>
