@@ -9,20 +9,24 @@
 .categories__row1 {
   z-index: 11111;
   position: absolute;
-  top: 11.5%;
+  top: 9%;
   width: 100% !important;
 }
 
 .categories__row2 {
-  margin-top: 0.8rem !important;
+  margin-top: 5rem !important;
 }
 
 .categories__row2Tablet {
-  margin-top: 30rem !important;
+  margin-top: 35rem !important;
 }
 
 .categories__row2Mobile {
   margin-top: 108rem !important;
+}
+
+.categoty__title {
+  margin-bottom: 0.5rem;
 }
 
 .category__image {

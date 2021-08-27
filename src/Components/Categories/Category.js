@@ -3,6 +3,7 @@ import { Avatar, Card, Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectFetchedUserDetails } from "../../redux/slices/fetchedDetailsSlice";
+import { Heading } from "../Components";
 
 const Product = ({
   categotyTitle,
@@ -37,7 +38,7 @@ const Product = ({
       className={`category ${row2CategoryClass && "row2__category"}`}
     >
       <Card className="category__content">
-        <h3 className="categoty__title">{categotyTitle}</h3>
+        <Heading className="categoty__title">{categotyTitle}</Heading>
         {specialBlocksCat && (
           <div className="user__Avatar">
             <Avatar src="https://www.amazon.com/avatar/default?customer_id=amzn1.account.AHXOHXUPVLWUMOQM5WE6SOM6FU3Q&max_width=60&max_height=60&square=true" />

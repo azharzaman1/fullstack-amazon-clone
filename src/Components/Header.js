@@ -36,8 +36,6 @@ const Header = ({ displayName, countryName, basketItems }) => {
   const [localBasket, setLocalBasket] = useState(
     JSON.parse(localStorage.getItem("basket"))
   );
-  const [vistorsDetails, setVisitorsDetails] = useState(null);
-  const [listCurrentValue, setListCurrentValue] = useState("All");
   const [show, setShow] = useState(false);
   const [showLoginDropDown, setShowLoginDropDown] = useState(false);
 
@@ -162,7 +160,9 @@ const Header = ({ displayName, countryName, basketItems }) => {
                     </span>
                   </div>
                 </Grid>
-                {showLoginDropDown && <LoginDropDown />}
+                {showLoginDropDown && (
+                  <LoginDropDown closeLoginDropDown={setShowLoginDropDown} />
+                )}
               </>
             )}
 
@@ -171,10 +171,14 @@ const Header = ({ displayName, countryName, basketItems }) => {
                 item
                 className="headerNav__option borderOnHover flexColumn pointer"
               >
-                <span className="headerNav__optionLineOne">Returns</span>
-                <span className="headerNav__optionLineTwo  boldText">
-                  & Orders
-                </span>
+                <Link to="/account/my-orders">
+                  <span className="headerNav__optionLineOne">Returns</span>
+                </Link>
+                <Link to="/account/my-orders">
+                  <span className="headerNav__optionLineTwo  boldText">
+                    & Orders
+                  </span>
+                </Link>
               </Grid>
             )}
             <Grid item className="headerNav__basket">
@@ -192,11 +196,16 @@ const Header = ({ displayName, countryName, basketItems }) => {
   );
 };
 
-const LoginDropDown = () => {
+const LoginDropDown = ({ closeLoginDropDown }) => {
   const currentUser = useSelector(selectUser);
 
   const signoutHandler = () => {
     auth.signOut();
+    closeDropDown();
+  };
+
+  const closeDropDown = () => {
+    closeLoginDropDown(false);
   };
 
   return (
@@ -214,7 +223,11 @@ const LoginDropDown = () => {
           </Link>
           <div className="flexRow">
             <p className="newCustomer__text">New customer?</p>
-            <Link to="/auth/register" className="redirectLink">
+            <Link
+              onClick={closeDropDown}
+              to="/auth/register"
+              className="redirectLink"
+            >
               Start here
             </Link>
           </div>
@@ -233,7 +246,9 @@ const LoginDropDown = () => {
         <div className="loginDropDown__bottomRight flexColumn">
           <h3>Your account</h3>
           <a href="#">Account</a>
-          <Link to="/account/my-orders">Orders</Link>
+          <Link onClick={closeDropDown} to="/account/my-orders">
+            Orders
+          </Link>
           <a href="#">Recommendations</a>
           <a href="#">Browsing history</a>
           <a href="#">Watch list</a>
