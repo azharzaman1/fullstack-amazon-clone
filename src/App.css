@@ -4,12 +4,12 @@
   font-family: AmazonEmber400;
 }
 
-body {
-  background-color: #eaeded !important;
+:root {
+  --background-main: #eaeded;
 }
 
-img {
-  /* object-fit: contain; */
+body {
+  background-color: var(--background-main) !important;
 }
 
 a {

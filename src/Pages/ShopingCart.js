@@ -9,7 +9,7 @@ import { SET_REDIRECT_TO_CHECKOUT } from "../redux/slices/userSlice";
 import { selectUser } from "../redux/slices/userSlice";
 import useStateValue from "../Files/StateProvider";
 import "./ShopingCart.css";
-import "../Components/Product.css";
+// import "../Components/Products/Product.css";
 
 const ShopingCart = () => {
   const [{ basket }, dispatch] = useStateValue();

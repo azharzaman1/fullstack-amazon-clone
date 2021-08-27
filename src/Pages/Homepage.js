@@ -1,10 +1,10 @@
 import React, { Suspense } from "react";
 import HeroSection from "../Components/HeroSection";
 import CategoriesRow1 from "../Components/Categories/CategoriesRow1";
-import Product from "../Components/Product";
+import Product from "../Components/Products/Product";
+import ProductsSlider from "../Components/Products/ProductsSlider";
 import DoneIcon from "@material-ui/icons/Done";
 import CardGiftcardIcon from "@material-ui/icons/CardGiftcard";
-import ProductsSlider from "../Components/ProductsSlider";
 import useStateValue from "../Files/StateProvider";
 import CurrencyFormat from "react-currency-format";
 import { basketTotal } from "../Files/reducer";
@@ -12,23 +12,38 @@ import {
   selectUser,
   SET_REDIRECT_TO_CHECKOUT,
 } from "../redux/slices/userSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { selectBasket } from "../redux/slices/basketSlice";
-import { Link } from "react-router-dom";
 import {
   Container,
   makeStyles,
   useTheme,
   useMediaQuery,
+  Grid,
 } from "@material-ui/core";
-import CategoriesRow from "../Components/Categories/CategoriesRow";
 import Category from "../Components/Categories/Category";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectBasket } from "../redux/slices/basketSlice";
+import {
+  HomeapageCatsRow2,
+  HomeapageCatsRow3,
+  HomeapageCatsRow4,
+} from "../Files/ProductCatsData";
 import "./Homepage.css";
+import ProductsRow from "../Components/Products/ProductsRow";
+import {
+  HomeapageProductsRow1,
+  HomeapageProductsRow2,
+} from "../Files/ProductsData";
+import { Heading } from "../Components/Components";
+
+const CategoriesRow = React.lazy(() =>
+  import("../Components/Categories/CategoriesRow")
+);
 
 const useStyles = makeStyles((theme) => ({
   container: {
     padding: "0",
-    backgroundColor: "#fff",
+    backgroundColor: "#eaeded",
   },
 }));
 
@@ -37,7 +52,9 @@ const Homepage = () => {
   const [{ basket }] = useStateValue();
 
   const theme = useTheme();
+  const isDesktop = useMediaQuery("(min-width:960px)");
   const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
   const isBelow500px = useMediaQuery("(max-width:500px)");
 
   return (
@@ -47,125 +64,82 @@ const Homepage = () => {
 
         <CategoriesRow1 />
 
-        <CategoriesRow
-          className={`categories__row2 ${
-            isTablet && "categories__row2Tablet"
-          } ${isBelow500px && "categories__row2Mobile"}`}
-        >
-          <Category
-            categotyTitle="Start on your holiday list early"
-            imgUrl="https://i.ibb.co/1z4BjqT/start.jpg"
-            linkText="Shop Now"
-          />
-          <Category
-            categotyTitle="Shop Laptops & Tablets"
-            imgUrl="https://i.ibb.co/bK9hDHp/gg.jpg"
-            linkText="Shop Now"
-          />
-          <Category
-            categotyTitle="Deals & Promotions"
-            imgUrl="https://i.ibb.co/gz6rm7h/promoti.jpg"
-            linkText="Shop Now"
-          />
-          <Category
-            categotyTitle="Explore home bedding"
-            imgUrl="https://i.ibb.co/kmS9SZW/abs.jpg"
-            linkText="Shop Now"
-          />
-        </CategoriesRow>
+        <Suspense fallback={<h1>Loading ...</h1>}>
+          <CategoriesRow
+            className={`categories__row2 ${
+              isTablet && "categories__row2Tablet"
+            } ${isBelow500px && "categories__row2Mobile"}`}
+          >
+            {HomeapageCatsRow2?.map((cat) => (
+              <Category
+                key={cat.id}
+                categotyTitle={cat.title}
+                imgUrl={cat.banner}
+                linkText={cat.linkText ? cat.linkText : "Shop Now"}
+              />
+            ))}
+          </CategoriesRow>
+        </Suspense>
 
-        <CategoriesRow className={`categories__row3`}>
-          <Category
-            categotyTitle="Start on your holiday list early"
-            imgUrl="https://i.ibb.co/1z4BjqT/start.jpg"
-            linkText="Shop Now"
-          />
-          <Category
-            categotyTitle="Gaming Accessories"
-            imgUrl="https://i.ibb.co/SKXLw4n/g.jpg"
-            linkText="Shop Now"
-            row2CategoryClass
-          />
-          <Category
-            categotyTitle="Computers & Accessories"
-            imgUrl="https://i.ibb.co/H45ZtjG/cas.jpg"
-            linkText="Shop Now"
-            row2CategoryClass
-          />
+        <Heading className="sectionHeading">Some trending from tech</Heading>
 
-          <Category
-            categotyTitle="Holiday deals"
-            imgUrl="https://i.ibb.co/PxPtBY6/hd.jpg"
-            linkText="Shop Now"
-            row2CategoryClass
-          />
-        </CategoriesRow>
+        {basket.length > 0 && (
+          <div className="livebasketbar__container">
+            <BasketLiveStatusBar />
+          </div>
+        )}
 
-        <CategoriesRow className={`categories__row4 `}>
-          <Category
-            categotyTitle="Start on your holiday list early"
-            imgUrl="https://i.ibb.co/1z4BjqT/start.jpg"
-            linkText="Shop Now"
-            row2CategoryClass
-          />
-          <Category
-            categotyTitle="Explore home bedding"
-            imgUrl="https://i.ibb.co/kmS9SZW/abs.jpg"
-            linkText="Shop Now"
-            row2CategoryClass
-          />
+        <ProductsRow className="products__row1">
+          {HomeapageProductsRow1?.map((product) => (
+            <Product
+              id={product.id}
+              title={product.title}
+              price={product.price}
+              imgUrl={product.imgUrl}
+              rating={product.rating}
+            />
+          ))}
+        </ProductsRow>
 
-          <Category
-            categotyTitle="Deals & Promotions"
-            imgUrl="https://i.ibb.co/gz6rm7h/promoti.jpg"
-            linkText="Shop Now"
-            row2CategoryClass
-          />
-          <Category
-            categotyTitle="Gaming Accessories"
-            imgUrl="https://i.ibb.co/SKXLw4n/g.jpg"
-            linkText="Shop our full selection"
-          />
-        </CategoriesRow>
+        <ProductsRow className="products__row2">
+          {HomeapageProductsRow2?.map((product) => (
+            <Product
+              id={product.id}
+              title={product.title}
+              price={product.price}
+              imgUrl={product.imgUrl}
+              rating={product.rating}
+            />
+          ))}
+        </ProductsRow>
 
-        {/* <Suspense fallback={<h1>Loading ...</h1>}> */}
-
-        {/* </Suspense> */}
+        <Suspense fallback={<h1>Loading ...</h1>}>
+          <CategoriesRow className={`categories__row3`}>
+            {HomeapageCatsRow3?.map((cat) => (
+              <Category
+                key={cat.id}
+                categotyTitle={cat.title}
+                imgUrl={cat.banner}
+                linkText={cat.linkText ? cat.linkText : "Shop Now"}
+              />
+            ))}
+          </CategoriesRow>
+        </Suspense>
+        <Suspense fallback={<h1>Loading ...</h1>}>
+          <CategoriesRow className={`categories__row4 `}>
+            {HomeapageCatsRow4?.map((cat) => (
+              <Category
+                key={cat.id}
+                categotyTitle={cat.title}
+                imgUrl={cat.banner}
+                linkText={cat.linkText ? cat.linkText : "Shop Now"}
+              />
+            ))}
+          </CategoriesRow>
+        </Suspense>
 
         {/* 
 
-        {basket.length > 0 && <BasketLiveStatusBar />}
-
-        <div className="products__row products__row1 flexRow center">
-          <Product
-            id="1255345"
-            title="Dell Latitude 2415p | 4GB | 320GB | UHD Display | Life-time Guarentee"
-            price={199.99}
-            imgUrl="https://i.ibb.co/Ry17Zy6/5.jpg"
-            rating={4}
-          />
-          <Product
-            id="255325"
-            title="HP Elitebook 8440p | 6GB | 500GB | UHD Display | 2 Year Guarentee"
-            price={499.99}
-            imgUrl="https://i.ibb.co/kmCKqPx/55.jpg"
-            rating={5}
-          />
-          <Product
-            id="432453543"
-            title="HP Elitebook 9111p | 12GB | 1TB | UHD Display | 5 Year Guarentee"
-            price={799.99}
-            imgUrl="https://i.ibb.co/Zx77kkW/555.jpg"
-            rating={3}
-          />
-          <Product
-            id="4323543"
-            title="Dell Latitude 4450p | 6GB | 512GB | UHD Display | Life-time Guarentee"
-            price={999.99}
-            imgUrl="https://i.ibb.co/bBxHMp8/5555.jpg"
-            rating={5}
-          />
-        </div>
         <ProductsSlider title="Discover Amazon" linkText="Click to learn more">
           <ProductsSliderProduct imgUrl="https://i.ibb.co/gg3XGbW/1.jpg" />
           <ProductsSliderProduct imgUrl="https://i.ibb.co/pWmHyff/2.jpg" />
@@ -210,50 +184,77 @@ const BasketLiveStatusBar = () => {
     }
   };
 
-  return (
-    <div className="basketLive__statusBar flexRow">
-      <div className="basketLive__left">
-        <DoneIcon />
-        <h3>{basket.length} Product(s) in Cart</h3>
-      </div>
-      <div className="basketLive__center flexColumn">
-        <div className="basket__subtotal flexRow">
-          <h3>
-            Cart subtotal <span>({basket.length} items):</span>{" "}
-          </h3>
-          <CurrencyFormat
-            decimalScale={2}
-            value={basketTotal(basket)}
-            displayType={"text"}
-            thousandSeperator={true}
-            prefix={"$"}
-            renderText={(value) => <strong>{value}</strong>}
-          />
-        </div>
+  const isDesktop = useMediaQuery("(min-width:960px)");
 
-        <div className="gift__check flexRow">
-          <input type="checkbox" className="checkbox" />
-          <div className="flexRow">
-            <CardGiftcardIcon /> <h5> This order contains a gift</h5>
-          </div>
-        </div>
-      </div>
-      <div className="basketLive__right flexRow">
-        <Link to="cart">
-          <button className="cart__btn">Cart</button>
-        </Link>
-        <Link
-          onClick={setUserPendingState}
-          to={
-            currentUser ? "/checkout/add-your-shipping-address" : "/auth/signin"
-          }
+  return (
+    <Grid container alignItems="center" className="basketLive__statusBar">
+      {isDesktop && (
+        <Grid item className="basketLive__left">
+          <DoneIcon />
+          <h3>{basket.length} Product(s) in Cart</h3>
+        </Grid>
+      )}
+
+      <Grid
+        xs
+        item
+        className={`basketLive__right ${
+          !isDesktop && "basketLive__right__belowDesktop"
+        }`}
+      >
+        <Grid
+          container
+          direction={isDesktop ? "row" : "column"}
+          alignItems="center"
+          justifyContent="space-between"
         >
-          <button className="checkout__btn">
-            Proceed to Checkout({basket.length} items)
-          </button>
-        </Link>
-      </div>
-    </div>
+          <Grid item>
+            <Grid item className="basket__subtotal flexRow">
+              <h3>
+                Cart subtotal <span>({basket.length} items):</span>{" "}
+              </h3>
+              <CurrencyFormat
+                decimalScale={2}
+                value={basketTotal(basket)}
+                displayType={"text"}
+                thousandSeperator={true}
+                prefix={"$"}
+                renderText={(value) => <strong>{value}</strong>}
+              />
+            </Grid>
+
+            <Grid item className="gift__check flexRow">
+              <input type="checkbox" className="checkbox" />
+              <div className="flexRow">
+                <CardGiftcardIcon /> <h5> This order contains a gift</h5>
+              </div>
+            </Grid>
+          </Grid>
+          <Grid
+            item
+            className={`basketLive__rightActions ${
+              !isDesktop && "basketLive__rightActions__belowDesktop"
+            }`}
+          >
+            <Link to="cart">
+              <button className="cart__btn">Cart</button>
+            </Link>
+            <Link
+              onClick={setUserPendingState}
+              to={
+                currentUser
+                  ? "/checkout/add-your-shipping-address"
+                  : "/auth/signin"
+              }
+            >
+              <button className="checkout__btn">
+                Proceed to Checkout({basket.length} items)
+              </button>
+            </Link>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
