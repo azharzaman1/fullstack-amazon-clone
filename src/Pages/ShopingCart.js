@@ -2,16 +2,31 @@ import React, { useState, useEffect } from "react";
 import CurrencyFormat from "react-currency-format";
 import { Link } from "react-router-dom";
 import { basketTotal } from "../Files/reducer";
-import { FormControl, MenuItem, Select } from "@material-ui/core";
+import {
+  Container,
+  FormControl,
+  MenuItem,
+  Select,
+  makeStyles,
+  Grid,
+  useTheme,
+  useMediaQuery,
+} from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { REMOVE_FROM_BASKET } from "../redux/slices/basketSlice";
 import { SET_REDIRECT_TO_CHECKOUT } from "../redux/slices/userSlice";
 import { selectUser } from "../redux/slices/userSlice";
 import useStateValue from "../Files/StateProvider";
 import "./ShopingCart.css";
-// import "../Components/Products/Product.css";
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    padding: 0,
+  },
+}));
 
 const ShopingCart = () => {
+  const c = useStyles();
   const [{ basket }, dispatch] = useStateValue();
   const [localBasket, setLocalBasket] = useState(
     localStorage.getItem("basket")
@@ -41,70 +56,86 @@ const ShopingCart = () => {
     setLocalBasket([]);
   };
 
-  return (
-    <div className="shopingCart flexColumn">
-      <div className="shopingCart__mainSection flexRow evenly">
-        <div className="shopingCart__left flexColumn">
-          <div className="shopingCart__leftHeader flexRow">
-            <div>
-              <span class="shopingCart__emptyTagline">
-                {localBasket?.length < 1
-                  ? "Your Shopping Cart is empty"
-                  : "Shoping Cart"}
-              </span>
-              {localBasket?.length > 0 && (
-                <h3
-                  onClick={emptyCart}
-                  className="shopingCart__deselectAll mainHoverEffect"
-                >
-                  Deselect all items
-                </h3>
-              )}
-              {localBasket?.length < 1 && (
-                <div className="shopingCart__emptyStatus">
-                  <h3>
-                    Return to products <Link to="/"> page</Link>
-                  </h3>
-                </div>
-              )}
-            </div>
-            {localBasket?.length > 0 && <h3>Price</h3>}
-          </div>
-          <div className="shopingCart__productsList">
-            {localBasket?.length > 0 &&
-              localBasket.map((product) => (
-                <ShopingCartProduct
-                  key={product.id}
-                  id={product.id}
-                  title={product.title}
-                  imgUrl={product.imgUrl}
-                  rating={product.rating}
-                  price={product.price}
-                  setLocalBasket={setLocalBasket}
-                  localBasket={localBasket}
-                />
-              ))}
-          </div>
-          {localBasket?.length > 0 && (
-            <h3 className="productsList__subTotal">
-              <span>Subtotal ({localBasket.length} items):</span>
+  const theme = useTheme();
+  const isDesktop = useMediaQuery("(min-width:960px)");
+  const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const isBelow500px = useMediaQuery("(max-width:500px)");
 
-              <CurrencyFormat
-                decimalScale={2}
-                value={basketTotal(localBasket)}
-                displayType={"text"}
-                thousandSeperator={true}
-                prefix={"$"}
-                renderText={(value) => <strong>{value}</strong>}
-              />
-            </h3>
-          )}
-        </div>
-        <div className="shopingCart__right flexColumn">
-          <SubTotal numberOfItems={localBasket?.length} basket={localBasket} />
-        </div>
+  return (
+    <Container maxWidth="lg" className={`shopingCart ${c.container}`}>
+      <div id="just-extra-spacing-compensation" style={{ padding: 8 }}>
+        <Grid
+          container
+          direction={isDesktop ? "row" : "row-reverse"}
+          spacing={2}
+          className="shopingCart__mainSection"
+        >
+          <Grid xs="12" md item className="shopingCart__left flexColumn">
+            <div className="shopingCart__leftHeader flexRow">
+              <div>
+                <h3 class="shopingCart__emptyTagline">
+                  {localBasket?.length < 1
+                    ? "Your Shopping Cart is empty"
+                    : "Shoping Cart"}
+                </h3>
+                {localBasket?.length > 0 && (
+                  <h3
+                    onClick={emptyCart}
+                    className="shopingCart__deselectAll mainHoverEffect"
+                  >
+                    Deselect all items
+                  </h3>
+                )}
+                {localBasket?.length < 1 && (
+                  <div className="shopingCart__emptyStatus">
+                    <h3>
+                      Return to products <Link to="/"> page</Link>
+                    </h3>
+                  </div>
+                )}
+              </div>
+              {localBasket?.length > 0 && <h3>Price</h3>}
+            </div>
+            <div className="shopingCart__productsList">
+              {localBasket?.length > 0 &&
+                localBasket.map((product) => (
+                  <ShopingCartProduct
+                    key={product.id}
+                    id={product.id}
+                    title={product.title}
+                    imgUrl={product.imgUrl}
+                    rating={product.rating}
+                    price={product.price}
+                    setLocalBasket={setLocalBasket}
+                    localBasket={localBasket}
+                  />
+                ))}
+            </div>
+            {localBasket?.length > 0 && (
+              <h3 className="productsList__subTotal">
+                <span>Subtotal ({localBasket.length} items):</span>
+
+                <CurrencyFormat
+                  decimalScale={2}
+                  value={basketTotal(localBasket)}
+                  displayType={"text"}
+                  thousandSeperator={true}
+                  prefix={"$"}
+                  renderText={(value) => <strong>{value}</strong>}
+                />
+              </h3>
+            )}
+          </Grid>
+          <Grid item xs="12" md="3" className="shopingCart__right flexColumn">
+            <SubTotal
+              numberOfItems={localBasket?.length}
+              basket={localBasket}
+            />
+          </Grid>
+        </Grid>
       </div>
-    </div>
+    </Container>
   );
 };
 
@@ -173,14 +204,6 @@ const ShopingCartProduct = ({
         localBasket: localBasket,
       })
     );
-    // dispatch({
-    //   type: "REMOVE_FROM_BASKET",
-    //   payload: {
-    //     id: id,
-    //     setLocalBasket: setLocalBasket,
-    //     localBasket: localBasket,
-    //   },
-    // });
   };
 
   const onQtyChange = (e) => {

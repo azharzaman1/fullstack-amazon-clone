@@ -145,11 +145,11 @@ const Header = ({ displayName, countryName, basketItems }) => {
                   className="headerNav__option headerNav__loginOption borderOnHover flexColumn"
                 >
                   {!currentUser ? (
-                    <span className="headerNav__optionLineOne signIn marginNeg pointer">
+                    <span className="headerNav__optionLineOne extra--margin--top signIn pointer">
                       Hello Guest, Sign In
                     </span>
                   ) : (
-                    <span className="headerNav__optionLineOne signIn marginNeg pointer">
+                    <span className="headerNav__optionLineOne signIn pointer extra--margin--top">
                       Hi, {displayName}
                     </span>
                   )}

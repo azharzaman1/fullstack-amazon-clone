@@ -109,9 +109,21 @@
   border-radius: 3px;
 }
 
-.headerNav__optionLineOne,
+.headerNav__optionLineOne {
+  color: white;
+  opacity: 0.9;
+}
+
 .headerNav__optionLineTwo {
   color: white;
+}
+
+.extra--margin--top {
+  margin-top: 3px !important;
+}
+
+.signInArrow {
+  margin-top: 0 !important;
 }
 
 .headerNav__option:hover {

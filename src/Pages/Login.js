@@ -95,10 +95,12 @@ const Login = () => {
             <h4>New to Amazon?</h4>
             <div className="tag_lines"></div>
           </div>
-          <Link to="/auth/register">
-            <button>Create your Amazon account</button>
-          </Link>
         </div>
+        <Link to="/auth/register">
+          <button className="createYourAccount__btn">
+            Create your Amazon account
+          </button>
+        </Link>
         <div className="box--shadow__signin "></div>
         <AuthFooter />
       </div>
