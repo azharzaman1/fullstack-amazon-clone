@@ -4,7 +4,14 @@ import AmazonLogo from "./logo.png";
 import "./CheckoutPayment.css";
 import { db } from "../Files/firebase";
 import useStateValue from "../Files/StateProvider";
-import { FormControl, MenuItem, Select } from "@material-ui/core";
+import {
+  FormControl,
+  Grid,
+  MenuItem,
+  Select,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core";
 import ErrorIcon from "@material-ui/icons/Error";
 import CurrencyFormat from "react-currency-format";
 import { basketTotal } from "../Files/reducer";
@@ -13,10 +20,10 @@ import {
   CardNumberElement,
   CardCvcElement,
 } from "@stripe/react-stripe-js";
-import firebase from "firebase";
 import { useSelector } from "react-redux";
 import { selectFetchedUserDetails } from "../redux/slices/fetchedDetailsSlice";
 import { selectUser } from "../redux/slices/userSlice";
+import firebase from "firebase";
 
 const CheckoutPayment = () => {
   const currentUser = useSelector(selectUser);
@@ -28,15 +35,13 @@ const CheckoutPayment = () => {
       ? JSON.parse(localStorage.getItem("basket"))
       : basket
   );
-  const [addressPresentInDatabase, setAddressPresentInDatabase] = useState(
-    false
-  );
+  const [addressPresentInDatabase, setAddressPresentInDatabase] =
+    useState(false);
   const [sortedBasket, setSortedBasket] = useState([]);
   const [termsOfUse, setTermsOfUse] = useState(false);
   const [privacyNotice, setPrivacyNotice] = useState(false);
-  const [setOrderPlacedSuccesfully, setSetOrderPlacedSuccesfully] = useState(
-    false
-  );
+  const [setOrderPlacedSuccesfully, setSetOrderPlacedSuccesfully] =
+    useState(false);
   const [processing, setProcessing] = useState(false);
 
   const history = useHistory();
@@ -129,18 +134,36 @@ const CheckoutPayment = () => {
     }
   };
 
+  const theme = useTheme();
+  const isDesktop = useMediaQuery("(min-width:960px)");
+  const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const isBelow500px = useMediaQuery("(max-width:500px)");
+
   return (
-    <div className="checkout__payment">
-      <div className="checkout__content flexColumn">
+    <Grid container justifyContent="center" className="checkout__payment">
+      <Grid
+        item
+        container
+        xs={11}
+        sm={10}
+        className="checkout__content flexColumn"
+      >
         <div className="checkout__header flexColumn">
-          <div className="checkoutHeader__steps flexRow">
-            <img src={AmazonLogo} alt="" />
-            <div className="header__steps flexRow">
+          <Grid
+            container
+            direction={isMobile ? "column" : "row"}
+            className="checkoutHeader__steps flexRow"
+          >
+            <Grid item>
+              <img src={AmazonLogo} alt="" />
+            </Grid>
+            <Grid item className="header__steps flexRow">
               <h3 className="passed">LOGIN</h3>
               <h3 className="passed">SHIPPING ADDRESS</h3>
               <h3 className="active">PAYMENT & ORDER PLACEMENT</h3>
-            </div>
-          </div>
+            </Grid>
+          </Grid>
           <div className="checkoutHeader__paymentPage">
             <p>
               Please verify your Shipping address, if its not your desired
@@ -150,8 +173,13 @@ const CheckoutPayment = () => {
             </p>
           </div>
         </div>
-        <div className="checkoutPayment__mainContent flexRow">
-          <div className="checkoutPayment__left flexColumn">
+        <Grid container className="checkoutPayment__mainContent">
+          <Grid
+            item
+            xs={12}
+            md={6}
+            className="checkoutPayment__left flexColumn"
+          >
             <div className="checkoutPayment__addressVerify">
               {addressPresentInDatabase && (
                 <div
@@ -172,8 +200,9 @@ const CheckoutPayment = () => {
                   </h3>
                   <h3>Phone: {fetchedData?.address.phoneNo}</h3>
                   <div>
-                    <div className="address__controls flexRow">
+                    <div className="address__controls">
                       <button
+                        className="checkoutPayment__leftEdit"
                         onClick={() =>
                           history.push("/checkout/add-your-shipping-address")
                         }
@@ -221,8 +250,9 @@ const CheckoutPayment = () => {
                 )}
               </div>
             </div>
-          </div>
-          <div className="checkoutPayment__right">
+          </Grid>
+          <Grid item md />
+          <Grid item xs={12} md={4} className="checkoutPayment__right">
             <h3>Please enter your Card details</h3>
             <p>
               As this is a demo app, no money will be deducted from your
@@ -296,10 +326,10 @@ const CheckoutPayment = () => {
             >
               {processing ? "Processing..." : "Place Order"}
             </button>
-          </div>
-        </div>
-      </div>
-    </div>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 

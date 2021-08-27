@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
 import AmazonLogo from "./logo.png";
-import "./Checkout.css";
-import { FormControl, Link, MenuItem, Select } from "@material-ui/core";
+import {
+  Container,
+  FormControl,
+  Grid,
+  Link,
+  MenuItem,
+  Select,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core";
 import { db } from "../Files/firebase";
-import useStateValue from "../Files/StateProvider";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
+import "./Checkout.css";
 
 const Checkout = () => {
   const currentUser = useSelector(selectUser);
@@ -26,17 +34,17 @@ const Checkout = () => {
   const [addressMarkDefault, setAddressMarkDefault] = useState(true);
   const [addressAdded, setAddressAdded] = useState(true);
   const [fetchedData, setFetchedData] = useState({});
-  const [addressPresentInDatabase, setAddressPresentInDatabase] = useState(
-    false
-  );
-  const [restMode, setRestMode] = useState(false);
+  const [addressPresentInDatabase, setAddressPresentInDatabase] =
+    useState(false);
+  const [addressEditMode, setAddressEditMode] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [adding, setAddingState] = useState(false);
 
   const history = useHistory();
 
   useEffect(() => {
-    db.collection("users")
+    const action = db
+      .collection("users")
       .doc(currentUser?.uid)
       .onSnapshot((doc) => {
         setFetchedData(doc.data());
@@ -44,6 +52,8 @@ const Checkout = () => {
           setAddressPresentInDatabase(doc.data()?.addressAdded);
         }
       });
+
+    return () => action;
   }, [currentUser]);
 
   useEffect(() => {
@@ -106,6 +116,9 @@ const Checkout = () => {
           },
           { merge: true }
         );
+      if (addressEditMode) {
+        setAddingState(false);
+      }
 
       setAddingState(false);
 
@@ -127,98 +140,98 @@ const Checkout = () => {
 
   const finalizeOrderAddress = async () => {
     setProcessing(true);
-    await db
-      .collection("users")
-      .doc(currentUser?.uid)
-      .set(
-        {
-          firstOrderAddress: {
-            country: selectedCountry,
-            fullName: fullName,
-            addressLineOne: addressPartOne,
-            addressLineTwo: addressPartTwo,
-            province: province,
-            city: city,
-            phoneNo: phoneNo,
-            zipCode: zipCode,
-          },
-        },
-        { merge: true }
-      );
-
     history.push("/checkout/payment-and-order-placement");
 
     setProcessing(false);
   };
 
   const editOrderAddress = () => {
-    setRestMode(false);
+    setAddressEditMode(true);
   };
 
   const buttonStatesReturner = () => {
-    if (restMode) {
-      return "Address added";
-    } else if (adding) {
-      return "Adding address";
+    if (addressEditMode) {
+      return "Update address";
     } else {
       return "Add this address";
     }
   };
 
+  const theme = useTheme();
+  const isDesktop = useMediaQuery("(min-width:960px)");
+  const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const isBelow500px = useMediaQuery("(max-width:500px)");
+
   return (
-    <div className="checkout">
-      <div className="checkout__content flexColumn">
+    <Grid container justifyContent="center" className="checkout">
+      <Grid item xs="11" sm="9" md="7" className="checkout__content flexColumn">
         <div className="checkout__header flexColumn">
-          <div className="checkoutHeader__steps flexRow">
-            <img src={AmazonLogo} alt="" />
-            <div className="header__steps flexRow">
+          <Grid
+            container
+            direction={isMobile ? "column" : "row"}
+            className="checkoutHeader__steps flexRow"
+          >
+            <Grid item>
+              <img src={AmazonLogo} alt="" />
+            </Grid>
+            <Grid item className="header__steps flexRow">
               <h3 className="passed">LOGIN</h3>
               <h3 className="active">SHIPPING ADDRESS</h3>
               <h3 className="upcoming">PAYMENT & ORDER PLACEMENT</h3>
-            </div>
-          </div>
+            </Grid>
+          </Grid>
           <div
             className={`checkoutHeader__addressHead ${
               addressPresentInDatabase && "checkoutHeader__addressPresentState"
             }`}
           >
             <h3>Select a shipping address</h3>
-            {addressPresentInDatabase ? (
-              <p>
-                Is the address you'd like to use displayed below? If so, click
-                the corresponding "Deliver to this address" button. Or you can
-                enter a new shipping address.
-              </p>
+            {!addressEditMode ? (
+              <>
+                {addressPresentInDatabase ? (
+                  <p>
+                    Is the address you'd like to use displayed below? If so,
+                    click the corresponding "Deliver to this address" button. Or
+                    you can enter a new shipping address.
+                  </p>
+                ) : (
+                  <p>
+                    Please enter a shipping address for this order. Please also
+                    indicate whether your billing address is the same as the
+                    shipping address entered. When finished, click the
+                    "Continue" button. Or, if you're sending items to more than
+                    one address, click the "Add another address" button to enter
+                    additional addresses.
+                  </p>
+                )}
+              </>
             ) : (
-              <p>
-                Please enter a shipping address for this order. Please also
-                indicate whether your billing address is the same as the
-                shipping address entered. When finished, click the "Continue"
-                button. Or, if you're sending items to more than one address,
-                click the "Add another address" button to enter additional
-                addresses.
-              </p>
+              <p>Please update your address below and hit "Update address"</p>
             )}
           </div>
         </div>
         <div className="checkout__mainContent flexRow">
           <div className="checkout__addressArea flexColumn">
-            {addressPresentInDatabase && (
+            {addressPresentInDatabase && !addressEditMode ? (
               <div className="alreadyPresent__address">
                 <strong>{fetchedData?.address.fullName}</strong>
                 <h3>{fetchedData?.address.addressLineOne}</h3>
                 <h3>
-                  <span>{fetchedData?.address.addressLineTwo}</span>,
+                  <span>{fetchedData?.address.addressLineTwo}</span>,{" "}
                   <span>{fetchedData?.address.zipCode}</span>
                 </h3>
                 <h3>
-                  <span>{fetchedData?.address.city}</span>,
-                  <span>{fetchedData?.address.province}</span>,
+                  <span>{fetchedData?.address.city}</span>,{" "}
+                  <span>{fetchedData?.address.province}</span>,{" "}
                   <span>{fetchedData?.address.country}</span>
                 </h3>
                 <h3>Phone: {fetchedData?.address.phoneNo}</h3>
                 <div>
-                  <button onClick={finalizeOrderAddress}>
+                  <button
+                    className="alreadyPresent__addressBtn"
+                    onClick={finalizeOrderAddress}
+                  >
                     {processing ? "Processing..." : "Deliver to this address"}
                   </button>
                   <div className="address__controls flexRow">
@@ -227,6 +240,8 @@ const Checkout = () => {
                   </div>
                 </div>
               </div>
+            ) : (
+              <></>
             )}
 
             {/* {formState && ( */}
@@ -324,14 +339,13 @@ const Checkout = () => {
               <input
                 className="address__submitBtn"
                 type="submit"
-                value={!restMode ? "Add this Address" : "Address added"}
                 value={buttonStatesReturner()}
               />
             </form>
           </div>
         </div>
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

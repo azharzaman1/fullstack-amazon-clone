@@ -5,9 +5,9 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { Heading } from "../Components";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
-import "./ProductsSlider.css";
+import "./Slider.css";
 
-const ProductsSlider = ({
+const Slider = ({
   title,
   redirectTo,
   linkText,
@@ -15,32 +15,10 @@ const ProductsSlider = ({
   sliderSpecificClass,
   sliderContentSpecificClass,
 }) => {
-  const [sliderContentId, setSliderContentId] = useState(parseFloat(uuid()));
-  const [sliderLeftControlId, setSliderLeftControlId] = useState(
-    parseFloat(uuid())
-  );
-  const [sliderRightControlId, setSliderRightControlId] = useState(
-    parseFloat(uuid())
-  );
-  useEffect(() => {
-    const buttonRight = document.getElementById(sliderRightControlId);
-    const buttonLeft = document.getElementById(sliderLeftControlId);
-
-    buttonRight.onclick = function () {
-      document.getElementById(sliderContentId).scrollLeft += 150;
-    };
-    buttonLeft.onclick = function () {
-      document.getElementById(sliderContentId).scrollLeft -= 150;
-    };
-  }, []);
+  const [sliderContentId, setSliderContentId] = useState(uuid());
 
   return (
-    <div
-      className={`products__slider flexColumn ${sliderSpecificClass}`}
-      onClick={() => {
-        console.log(sliderContentId);
-      }}
-    >
+    <div className={`products__slider flexColumn ${sliderSpecificClass}`}>
       <div className="productsSlider__head flexRow center">
         <Heading type={2}>{title}</Heading>
         <Link className="redirectLink" to={redirectTo}>
@@ -49,7 +27,9 @@ const ProductsSlider = ({
       </div>
       <div className="productsSlider__slider flexRow between">
         <Button
-          id={sliderLeftControlId}
+          onClick={() => {
+            document.getElementById(sliderContentId).scrollLeft -= 150;
+          }}
           className="productSlider__controller productSlider__controller1"
           variant="outlined"
         >
@@ -62,7 +42,9 @@ const ProductsSlider = ({
           {children}
         </div>
         <Button
-          id={sliderRightControlId}
+          onClick={() => {
+            document.getElementById(sliderContentId).scrollLeft += 150;
+          }}
           className="productSlider__controller productSlider__controller2"
           variant="outlined"
         >
@@ -73,4 +55,4 @@ const ProductsSlider = ({
   );
 };
 
-export default ProductsSlider;
+export default Slider;

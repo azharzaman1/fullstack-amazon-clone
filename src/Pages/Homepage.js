@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import HeroSection from "../Components/HeroSection";
 import CategoriesRow1 from "../Components/Categories/CategoriesRow1";
 import Product from "../Components/Products/Product";
-import ProductsSlider from "../Components/Products/ProductsSlider";
+import Slider from "../Components/Products/Slider";
 import DoneIcon from "@material-ui/icons/Done";
 import CardGiftcardIcon from "@material-ui/icons/CardGiftcard";
 import useStateValue from "../Files/StateProvider";
@@ -40,6 +40,7 @@ import {
   HomepageFeaturesSlider1Items,
   HomepageProductsSlider1Items,
 } from "../Files/ProductsSlidersData";
+import { v4 as uuid } from "uuid";
 
 const CategoriesRow = React.lazy(() =>
   import("../Components/Categories/CategoriesRow")
@@ -118,22 +119,27 @@ const Homepage = () => {
           ))}
         </ProductsRow>
 
-        <ProductsSlider
+        <Slider
           sliderSpecificClass="topSellers__productsSlider"
           sliderContentSpecificClass="sliderTopSeller__content"
           title="Amazon Top Sellers"
           linkText="Shop now"
+          sliderUniqueId="1"
         >
           {HomepageProductsSlider1Items?.map((item) => (
             <ProductsSliderProduct key={item.imgUrl} imgUrl={item.imgUrl} />
           ))}
-        </ProductsSlider>
+        </Slider>
 
-        <ProductsSlider title="Discover Amazon" linkText="Click to learn more">
+        <Slider
+          title="Discover Amazon"
+          linkText="Click to learn more"
+          sliderUniqueId="2"
+        >
           {HomepageFeaturesSlider1Items?.map((item) => (
             <ProductsSliderProduct key={item.imgUrl} imgUrl={item.imgUrl} />
           ))}
-        </ProductsSlider>
+        </Slider>
 
         <Suspense fallback={<h1>Loading ...</h1>}>
           <CategoriesRow className={`categories__row3`}>
