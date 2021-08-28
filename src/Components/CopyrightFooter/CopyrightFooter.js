@@ -11,7 +11,6 @@ const useStyles = makeStyles(() => ({
   },
 
   chip: {
-    margin: "0 5px",
     padding: "0 5px",
   },
 }));
@@ -32,7 +31,7 @@ const CopyrightFooter = () => {
             Design and developed by Azhar Zaman
           </Heading2>
         </Grid>
-        <Grid item container justifyContent="center">
+        <Grid item container spacing={1} justifyContent="center">
           <MuiChip
             link="https://azharzaman.com"
             title="Website"
@@ -74,17 +73,19 @@ export const MuiChip = ({
 }) => {
   const c = useStyles();
   return (
-    <a href={link} target="_blank" rel="noreferrer">
-      <Chip
-        label={title}
-        icon={icon}
-        size={size ? size : "medium"}
-        clickable={unclickable ? false : true}
-        color={color ? color : "secondary"}
-        variant={variant ? variant : "outlined"}
-        className={`${c.chip}`}
-      />
-    </a>
+    <Grid item>
+      <a href={link} target="_blank" rel="noreferrer">
+        <Chip
+          label={title}
+          icon={icon}
+          size={size ? size : "medium"}
+          clickable={unclickable ? false : true}
+          color={color ? color : "secondary"}
+          variant={variant ? variant : "outlined"}
+          className={`${c.chip}`}
+        />
+      </a>
+    </Grid>
   );
 };
 
