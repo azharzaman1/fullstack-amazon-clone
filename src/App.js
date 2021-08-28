@@ -14,6 +14,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import { PageLoadingSpinner } from "./Components/Components";
+import CopyrightFooter from "./Components/CopyrightFooter/CopyrightFooter";
 
 const OrderPlacedSuccssfully = lazy(() =>
   import("./Pages/OrderPlacedSuccssfully")
@@ -131,6 +132,7 @@ const App = () => {
             <Suspense fallback={<span>.</span>}>
               <Footer />
             </Suspense>
+            <CopyrightFooter />
           </Route>
           <Route path="/cart">
             <Header
