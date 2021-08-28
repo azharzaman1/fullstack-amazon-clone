@@ -23,10 +23,6 @@
   padding-top: 10rem;
 }
 
-/* 
-.loader--absolute--center {
-} */
-
 .lds-ring {
   display: inline-block;
   position: relative;
@@ -43,7 +39,6 @@
   border: 8px solid rgb(255, 255, 255);
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  /* border-color: rgb(212, 3, 3) transparent transparent transparent; */
 }
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;

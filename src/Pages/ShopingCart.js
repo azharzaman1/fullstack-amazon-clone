@@ -56,11 +56,7 @@ const ShopingCart = () => {
     setLocalBasket([]);
   };
 
-  const theme = useTheme();
   const isDesktop = useMediaQuery("(min-width:960px)");
-  const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
-  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
-  const isBelow500px = useMediaQuery("(max-width:500px)");
 
   return (
     <Container maxWidth="lg" className={`shopingCart ${c.container}`}>
@@ -74,7 +70,7 @@ const ShopingCart = () => {
           <Grid xs="12" md item className="shopingCart__left flexColumn">
             <div className="shopingCart__leftHeader flexRow">
               <div>
-                <h3 class="shopingCart__emptyTagline">
+                <h3 className="shopingCart__emptyTagline">
                   {localBasket?.length < 1
                     ? "Your Shopping Cart is empty"
                     : "Shoping Cart"}

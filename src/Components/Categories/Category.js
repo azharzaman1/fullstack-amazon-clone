@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Avatar, Card, Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";

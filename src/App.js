@@ -67,7 +67,7 @@ const App = () => {
         dispatch(SET_USER(null));
       }
     });
-  }, []);
+  }, [dispatch]);
 
   // Fetche Location Details of visiting user
 
@@ -102,7 +102,7 @@ const App = () => {
     };
 
     fetchDataFromDB();
-  }, [user]);
+  }, [user, dispatch]);
 
   useEffect(() => {
     setSecureData({

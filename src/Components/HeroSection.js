@@ -1,30 +1,28 @@
 import React, { useState } from "react";
 import "./HeroSection.css";
-import {
-  importedSliderImages,
-  ForwardArrow,
-  BackArrow,
-} from "../Files/allImagesLink";
-
+import { ForwardArrow, BackArrow } from "../Files/allImagesLink";
 import { Button } from "@material-ui/core";
+import SliderImg1 from "./files/1.jpg";
+import SliderImg2 from "./files/2.jpg";
+import SliderImg3 from "./files/3.jpg";
+import SliderImg4 from "./files/4.jpg";
+import { ReactComponent as ArrowRight } from "./assets/arrow.svg";
 
 const HeroSection = () => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [sliderImages, setSliderImages] = useState([
-    "https://i.ibb.co/xGMmmcx/1.jpg",
-    "https://i.ibb.co/h2P2BRR/Fuji-Tall-Hero-Beauty-v2-en-US-1x-CB429089975.jpg",
-    "https://i.ibb.co/rFShK06/AMZ-Associates-ACC-Banner-Evergreen-1500x600-v2-CB415565312.jpg",
-    "https://i.ibb.co/72SvVHf/2.jpg",
-    "https://i.ibb.co/RYdz0vj/3.jpg",
-    "https://i.ibb.co/Zgbz8Ck/4.jpg",
+    SliderImg1,
+    SliderImg2,
+    SliderImg3,
+    SliderImg4,
   ]);
 
   const firstSlideIndex = 0;
   const lastSlideIndex = sliderImages.length - 1;
 
-  function sliderImageSetter(arg) {
+  function sliderImageSetter(sliderImages) {
     if (slideIndex >= firstSlideIndex && slideIndex <= lastSlideIndex) {
-      return arg[slideIndex];
+      return sliderImages[slideIndex];
     }
   }
 
@@ -41,7 +39,7 @@ const HeroSection = () => {
   // Dynamic Slider Controllers(Backward)
 
   function decrement() {
-    if (slideIndex > 0 && slideIndex <= lastSlideIndex) {
+    if (slideIndex > firstSlideIndex && slideIndex <= lastSlideIndex) {
       setSlideIndex((prevIndex) => prevIndex - 1);
     } else {
       setSlideIndex(lastSlideIndex);
@@ -53,16 +51,28 @@ const HeroSection = () => {
       <div className="slider">
         <Button
           onClick={decrement}
+          size="small"
           className="slider__controller slider__controllerBack"
         >
-          <img className="slider__arrows" src={BackArrow} alt="<" />
+          <img
+            className="slider__arrows"
+            src={BackArrow}
+            width="20px"
+            alt="<"
+          />
         </Button>
         <img src={sliderImageSetter(sliderImages)} />
         <Button
           onClick={increment}
           className="slider__controller slider__controllerForw"
         >
-          <img className="slider__arrows" src={ForwardArrow} alt=">" />
+          <img
+            loading="lazy"
+            className="slider__arrows"
+            src={ForwardArrow}
+            width="20px"
+            alt=">"
+          />
         </Button>
       </div>
       <div className="slider__fade"></div>

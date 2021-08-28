@@ -158,10 +158,7 @@ const Checkout = () => {
   };
 
   const theme = useTheme();
-  const isDesktop = useMediaQuery("(min-width:960px)");
-  const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
-  const isBelow500px = useMediaQuery("(max-width:500px)");
 
   return (
     <Grid container justifyContent="center" className="checkout">
@@ -244,7 +241,6 @@ const Checkout = () => {
               <></>
             )}
 
-            {/* {formState && ( */}
             <form onSubmit={submitHandler} className="address__form">
               <h3>Add a new address</h3>
               <div className="address__input">

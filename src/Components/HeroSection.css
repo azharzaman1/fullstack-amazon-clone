@@ -10,20 +10,21 @@
 
 .slider__controller {
   position: absolute !important;
-  top: 30%;
+  top: 10px;
+  width: 75px !important;
+  height: 225px !important;
 }
 
 .slider__controllerBack {
-  left: 2.5rem;
+  left: 1rem;
 }
 
 .slider__controllerForw {
-  right: 2.5rem;
+  right: 1rem;
 }
 
 .slider__arrows {
-  height: 53px;
-  display: none;
+  height: 50px !important;
 }
 
 .slider__fade {

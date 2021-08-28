@@ -136,9 +136,7 @@ const CheckoutPayment = () => {
 
   const theme = useTheme();
   const isDesktop = useMediaQuery("(min-width:960px)");
-  const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
-  const isBelow500px = useMediaQuery("(max-width:500px)");
 
   return (
     <Grid container justifyContent="center" className="checkout__payment">
@@ -231,9 +229,6 @@ const CheckoutPayment = () => {
                   ))}
               </div>
               <div className="checkout__totalSection flexRow">
-                {/* <Link to="/cart">
-                  <h3 className="mainHoverEffect goToBasket">Go to basket</h3>
-                </Link> */}
                 {localBasket?.length > 0 && (
                   <h3 className="checkoutProductsList__subTotal">
                     <span>Total ({localBasket.length} items):</span>
