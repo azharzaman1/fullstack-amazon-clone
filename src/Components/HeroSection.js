@@ -6,7 +6,6 @@ import SliderImg1 from "./files/1.jpg";
 import SliderImg2 from "./files/2.jpg";
 import SliderImg3 from "./files/3.jpg";
 import SliderImg4 from "./files/4.jpg";
-import { ReactComponent as ArrowRight } from "./assets/arrow.svg";
 
 const HeroSection = () => {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -61,7 +60,7 @@ const HeroSection = () => {
             alt="<"
           />
         </Button>
-        <img src={sliderImageSetter(sliderImages)} />
+        <img loading="lazy" src={sliderImageSetter(sliderImages)} />
         <Button
           onClick={increment}
           className="slider__controller slider__controllerForw"

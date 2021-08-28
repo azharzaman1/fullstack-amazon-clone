@@ -19,14 +19,8 @@
 }
 
 .order {
-  border-top: 1px solid rgb(230, 230, 230);
-  margin-bottom: 0.25rem;
-}
-
-@media only screen and (max-width: 700px) {
-  .order {
-    margin-top: 1rem;
-  }
+  border-bottom: 1px solid rgb(230, 230, 230);
+  padding-bottom: 1rem;
 }
 
 .orderContent__left,
@@ -87,7 +81,7 @@
 
 .ordersCart__item {
   padding: 0.85rem 1rem;
-  border-top: 1px solid rgb(240, 240, 240);
+  border-bottom: 1px solid rgb(240, 240, 240);
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -95,7 +89,7 @@
 }
 
 .ordersCart__item:last-child {
-  border-bottom: 1px solid rgb(240, 240, 240);
+  border-bottom: none;
 }
 
 .checkout__productImage {
