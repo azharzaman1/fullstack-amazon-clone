@@ -1,6 +1,5 @@
 .checkout__payment {
   width: 100%;
-  max-width: 100%;
   min-height: 100vh;
   padding: 0 0 3rem;
   background-color: white;
@@ -20,21 +19,8 @@
   line-height: 19px;
 }
 
-.checkoutPayment__left {
-  flex: 0.55;
-}
-
-.checkoutPayment__cartOverview {
-  width: 88%;
-}
-
-.checkoutPayment__right {
-  flex: 0.5;
-}
-
-.extraMargin {
-  margin-top: 1.6rem;
-  margin-left: 1rem;
+.checkoutPayment__mainContent {
+  margin-top: 2rem;
 }
 
 .alreadyPresent__address > h2 {
@@ -177,15 +163,8 @@
 
 /* CHECKOUT PAYMENT SIDE STYLING */
 
-.checkoutPayment__right {
-  flex: 0.45;
-  margin-left: 7rem;
-  padding: 1.35rem 0 1rem;
-}
-
 .checkoutPayment__right h3 {
   font-size: 22px;
-  /* text-align: center; */
 }
 
 .checkoutPayment__right p {
@@ -196,7 +175,6 @@
 
 .cardDetails__inputs {
   margin-top: 1rem;
-  /* margin-left: 2.5rem; */
 }
 
 .cardNumber__input,
@@ -265,4 +243,13 @@
 
 .showTerms___errorIcon {
   display: block !important;
+}
+
+.checkout__productImage {
+  width: 20%;
+  object-fit: contain;
+}
+
+.checkoutPayment__leftEdit {
+  width: 30% !important;
 }

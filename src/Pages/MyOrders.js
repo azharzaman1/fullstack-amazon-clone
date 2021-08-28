@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../Files/firebase";
-import useStateValue from "../Files/StateProvider";
-import "./MyOrders.css";
 import { selectUser } from "../redux/slices/userSlice";
 import { useSelector } from "react-redux";
+import { Container, Grid, useMediaQuery, useTheme } from "@material-ui/core";
+import "./MyOrders.css";
 
 const MyOrders = () => {
   const currentUser = useSelector(selectUser);
@@ -24,15 +24,15 @@ const MyOrders = () => {
   }, [currentUser]);
 
   return (
-    <div className="my__orders">
-      <div className="myOrders__content">
-        <div className="myOrders__header">
+    <Container maxWidth="lg" className="my__orders">
+      <Grid container direction="column" className="myOrders__content">
+        <Grid item className="myOrders__header">
           <h3>My Orders</h3>
-        </div>
-        <div className="myOrders__list">
+        </Grid>
+        <Grid item container className="myOrders__list">
           {orders?.map((order) => (
             <MyOrdersOrder
-              orderNumber={order.id}
+              orderNumber={order?.id}
               orderTimeStamp={new Date(
                 order?.orderDetails.orderInfo.orderTimeStamp.toDate()
               ).toUTCString()}
@@ -43,16 +43,16 @@ const MyOrders = () => {
               city={order?.orderDetails.address.city}
               country={order?.orderDetails.address.country}
               province={order?.orderDetails.address.province}
-              cartArray={order?.orderDetails.cart}
+              orderCart={order?.orderDetails.cart}
               orderTotal={
                 order?.orderDetails.orderInfo.orderTotalAmountInDollers
               }
               orderItems={order?.orderDetails.orderInfo.orderTotalItems}
             />
           ))}
-        </div>
-      </div>
-    </div>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
@@ -66,19 +66,34 @@ const MyOrdersOrder = ({
   city,
   province,
   country,
-  cartArray,
+  orderCart,
   orderItems,
   orderTotal,
 }) => {
+  const theme = useTheme();
+  const isDesktop = useMediaQuery("(min-width:960px)");
+
   return (
-    <div className="order">
-      <div className="orderMainContent flexRow">
-        <div className="orderContent__left">
-          <div className="orderDetails flexColumn">
+    <Grid
+      item
+      container
+      id="just-extra-spacing-compensation"
+      style={{ padding: "12px" }}
+    >
+      <Grid item container className="order" spacing={3}>
+        <Grid
+          item
+          sm={8}
+          md={3}
+          container
+          direction="column"
+          className="orderContent__left"
+        >
+          <Grid item className="orderDetails">
             <h3>Order No: {orderNumber}</h3>
             <span>Order placed at: {orderTimeStamp} </span>
-          </div>
-          <div className="order__address flexColumn">
+          </Grid>
+          <Grid item className="order__address">
             <h3>Order shipping address </h3>
             <h4>{orderAddressName}</h4>
             <h4>{addressLineOne}</h4>
@@ -89,12 +104,25 @@ const MyOrdersOrder = ({
               <span>{city},</span> <span>{province} | </span>{" "}
               <span>{country}</span>
             </h4>
-          </div>
-        </div>
-        <div className="orderContent__right">
-          <div className="order__cart flexColumn">
+          </Grid>
+        </Grid>
+        {!isDesktop && (
+          <Grid item md={2} className="order__amounts flexColumn">
+            <h4>Order Total Items : {orderItems}</h4>
+            <h4>Order Total : ${orderTotal.toFixed(2)}</h4>
+            <h4>Order Status : Processing</h4>
+          </Grid>
+        )}
+        <Grid
+          item
+          md
+          containr
+          justifyContent="center"
+          className="orderContent__right"
+        >
+          <Grid item md="11" className="order__cart flexColumn">
             <h3>Order Items </h3>
-            {cartArray?.map((cartItem) => (
+            {orderCart?.map((cartItem) => (
               <OrderCartItem
                 key={cartItem.id}
                 title={cartItem.title}
@@ -103,14 +131,16 @@ const MyOrdersOrder = ({
                 qty={cartItem.qty}
               />
             ))}
-          </div>
-        </div>
-        <div className="order__amounts flexColumn">
-          <h4>Order Total Items : {orderItems}</h4>
-          <h4>Order Total : ${orderTotal.toFixed(2)}</h4>
-        </div>
-      </div>
-    </div>
+          </Grid>
+        </Grid>
+        {isDesktop && (
+          <Grid item md={2} className="order__amounts flexColumn">
+            <h4>Order Total Items : {orderItems}</h4>
+            <h4>Order Total : ${orderTotal.toFixed(2)}</h4>
+          </Grid>
+        )}
+      </Grid>
+    </Grid>
   );
 };
 

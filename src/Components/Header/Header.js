@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import SearchIcon from "@material-ui/icons/Search";
-import AmazonLogo from "./files/logo.png";
-import EnglishFlag from "./files/english.png";
+import AmazonLogo from "../files/logo.png";
+import EnglishFlag from "../files/english.png";
 import {
   KeyboardArrowDown,
   ShoppingBasket,
   PersonPinCircle,
 } from "@material-ui/icons";
 import Dropdown from "./Dropdown";
-import useStateValue from "../Files/StateProvider";
 import { Link } from "react-router-dom";
-import { auth } from "../Files/firebase";
-import { selectUser } from "../redux/slices/userSlice";
 import { useSelector } from "react-redux";
 import {
   AppBar,
@@ -21,6 +18,9 @@ import {
   useTheme,
 } from "@material-ui/core";
 import "./Header.css";
+import { auth } from "../../Files/firebase";
+import { selectUser } from "../../redux/slices/userSlice";
+import useStateValue from "../../Files/StateProvider";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -50,17 +50,13 @@ const Header = ({ displayName, countryName, basketItems }) => {
   const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
 
-  console.log("Desk", isDesktop && isDesktop);
-  console.log("Tab", isTablet && !isMobile ? true : false);
-  console.log("Mob", isMobile && isMobile);
-
   return (
     <AppBar position="static" className={c.appbar}>
       <Grid container className="header" alignItems="center" spacing={3}>
         <Grid item className="header__LogoLocation">
           <Grid container>
             <Link to="/" className="header__logo">
-              <img src={AmazonLogo} alt="Amazon" width="95px" />
+              <img src={AmazonLogo} alt="Amazon" width={isDesktop ? 95 : 75} />
             </Link>
             <Grid item>
               {countryName !== "" && (

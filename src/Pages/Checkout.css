@@ -247,12 +247,3 @@
 }
 
 /* Payment and other options page exclusive styles */
-
-.checkout__productImage {
-  width: 25%;
-  object-fit: contain;
-}
-
-.checkoutPayment__leftEdit {
-  width: 30% !important;
-}
