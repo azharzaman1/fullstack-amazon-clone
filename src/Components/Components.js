@@ -12,3 +12,50 @@ export const Heading = ({ type, children, className }) => {
     </div>
   );
 };
+
+export const PageLoadingSpinner = ({ show, position, color }) => {
+  return (
+    <>
+      {show && (
+        <div
+          className={`loader--container ${
+            !position || position === "abs-center"
+              ? "loader--absolute--center"
+              : ""
+          }`}
+        >
+          <div class={`lds-ring`}>
+            <div
+              style={{
+                borderColor: `${
+                  color ? color : "#ccc"
+                } transparent transparent transparent`,
+              }}
+            ></div>
+            <div
+              style={{
+                borderColor: `${
+                  color ? color : "#ccc"
+                } transparent transparent transparent`,
+              }}
+            ></div>
+            <div
+              style={{
+                borderColor: `${
+                  color ? color : "#ccc"
+                } transparent transparent transparent`,
+              }}
+            ></div>
+            <div
+              style={{
+                borderColor: `${
+                  color ? color : "#ccc"
+                } transparent transparent transparent`,
+              }}
+            ></div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};

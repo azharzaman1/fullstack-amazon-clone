@@ -1,11 +1,13 @@
+.my__orders {
+  padding: 0 8px !important;
+}
+
 .myOrders__content {
   background-color: white;
-  width: 90%;
-  margin: 1rem auto 0;
   box-shadow: 1.5px 1.5px 10px 0px rgba(0, 0, 0, 0.15),
     -1px -1px 10px 0px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 
 .myOrders__header {
@@ -17,36 +19,32 @@
 }
 
 .order {
-  border-top: 1px solid rgb(192, 192, 192);
-  margin-bottom: 1.5rem;
+  border-top: 1px solid rgb(230, 230, 230);
+  margin-bottom: 0.25rem;
 }
 
-.orderMainContent {
-  margin-top: 1.5rem;
+@media only screen and (max-width: 700px) {
+  .order {
+    margin-top: 1rem;
+  }
 }
 
-/* Contnt Left */
-/* Order Header */
-
-.orderContent__left {
-  flex: 0.5;
-  margin-left: 1rem;
+.orderContent__left,
+.orderContent__right,
+.order__amounts {
+  padding: 1rem 0 0 !important;
 }
 
 .orderDetails {
-  width: 100%;
-  padding: 0 0 1rem;
   width: fit-content;
-  border-bottom: 1px solid rgb(224, 224, 224);
-  margin-top: 0.25rem;
 }
 
 .orderDetails > h3 {
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .orderDetails > span {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 300;
   color: rgb(90, 90, 90);
   margin-top: 0.33rem;
@@ -58,12 +56,15 @@
   margin-top: 1rem;
 }
 
-.order__address > h3 {
-  margin-bottom: 1rem;
+.order__address > h4 {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgb(90, 90, 90);
+  margin-top: 6px;
 }
 
-.order__address > h4 {
-  font-size: 14px;
+.order__address > h4 > span {
+  font-size: 13px;
   font-weight: 400;
   color: rgb(90, 90, 90);
   margin-top: 6px;
@@ -81,14 +82,13 @@
 
 .order__cart {
   border-radius: 5px;
-  overflow: hidden;
-  flex: 0.5;
-  margin-left: 3rem;
+  margin: 0 auto;
+  /* overflow: hidden; */
 }
 
 .ordersCart__item {
   padding: 0.85rem 1rem;
-  border-top: 1px solid rgb(224, 224, 224);
+  border-top: 1px solid rgb(240, 240, 240);
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -96,11 +96,12 @@
 }
 
 .ordersCart__item:last-child {
-  border-bottom: 1px solid rgb(224, 224, 224);
+  border-bottom: 1px solid rgb(240, 240, 240);
 }
 
 .checkout__productImage {
   width: 55px;
+  object-fit: contain;
 }
 
 .orderCart__itemInfo {
@@ -129,11 +130,6 @@
 }
 
 /* Order Totals */
-
-.order__amounts {
-  margin-top: 1.5rem;
-  margin-left: 4rem;
-}
 
 .order__amounts > h4 {
   font-size: 14px;

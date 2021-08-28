@@ -1,25 +1,29 @@
-import React, { useState, useEffect } from "react";
-import Header from "./Components/Header";
-import HeaderSecondary from "./Components/HeaderSecondary";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import Homepage from "./Pages/Homepage";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./App.css";
+import Header from "./Components/Header/Header";
+import HeaderSecondary from "./Components/Header/HeaderSecondary";
 import ShopingCart from "./Pages/ShopingCart";
-import CheckoutAdress from "./Pages/CheckoutAddress";
-import Login from "./Pages/Login";
-import Signup from "./Pages/Signup";
-import { auth, db } from "./Files/firebase";
-import useStateValue from "./Files/StateProvider";
-import Footer from "./Components/Footer";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import CheckoutPayment from "./Pages/CheckoutPayment";
-import OrderPlacedSuccssfully from "./Pages/OrderPlacedSuccssfully";
-import MyOrders from "./Pages/MyOrders";
 import { useDispatch } from "react-redux";
 import { SET_FETCHED_DETAILS } from "./redux/slices/fetchedDetailsSlice";
 import { SET_USER } from "./redux/slices/userSlice";
 import { CssBaseline } from "@material-ui/core";
+import { auth, db } from "./Files/firebase";
+import useStateValue from "./Files/StateProvider";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./App.css";
+import { PageLoadingSpinner } from "./Components/Components";
+
+const OrderPlacedSuccssfully = lazy(() =>
+  import("./Pages/OrderPlacedSuccssfully")
+);
+const MyOrders = lazy(() => import("./Pages/MyOrders"));
+const Login = lazy(() => import("./Pages/Login"));
+const Signup = lazy(() => import("./Pages/Signup"));
+const CheckoutAdress = lazy(() => import("./Pages/CheckoutAddress"));
+const CheckoutPayment = lazy(() => import("./Pages/CheckoutPayment"));
+const Footer = lazy(() => import("./Components/Footer"));
 
 const App = () => {
   const [{ basket }] = useStateValue();
@@ -124,8 +128,9 @@ const App = () => {
             />
             <HeaderSecondary />
             <Homepage />
-            <Footer />
-            {/* <Copyright /> */}
+            <Suspense fallback={<span>.</span>}>
+              <Footer />
+            </Suspense>
           </Route>
           <Route path="/cart">
             <Header
@@ -133,18 +138,18 @@ const App = () => {
               displayName={fetchedData?.displayName}
               basketItems={localBasketAfterRefrsh?.length}
             />
-
             <HeaderSecondary />
             <ShopingCart />
-            {/* <Copyright /> */}
           </Route>
           <Route path="/auth/register">
-            <Signup />
-            {/* <Copyright /> */}
+            <Suspense fallback={<PageLoadingSpinner show={true} />}>
+              <Signup />
+            </Suspense>
           </Route>
           <Route path="/auth/signin">
-            <Login />
-            {/* <Copyright /> */}
+            <Suspense fallback={<PageLoadingSpinner show={true} />}>
+              <Login />
+            </Suspense>
           </Route>
           <Route path="/checkout/payment-and-order-placement">
             <Elements stripe={promise}>
@@ -153,8 +158,9 @@ const App = () => {
                 displayName={fetchedData?.displayName}
                 basketItems={localBasketAfterRefrsh?.length}
               />
-              <CheckoutPayment />
-              {/* <Copyright /> */}
+              <Suspense fallback={<PageLoadingSpinner show={true} />}>
+                <CheckoutPayment />
+              </Suspense>
             </Elements>
           </Route>
           <Route path="/checkout/add-your-shipping-address">
@@ -163,8 +169,9 @@ const App = () => {
               displayName={fetchedData?.displayName}
               basketItems={localBasketAfterRefrsh?.length}
             />
-            <CheckoutAdress />
-            {/* <Copyright /> */}
+            <Suspense fallback={<PageLoadingSpinner show={true} />}>
+              <CheckoutAdress />
+            </Suspense>
           </Route>
           <Route path="/order-placed-notification">
             <Header
@@ -172,8 +179,11 @@ const App = () => {
               displayName={fetchedData?.displayName}
               basketItems={localBasketAfterRefrsh?.length}
             />
-            <OrderPlacedSuccssfully />
-            {/* <Copyright /> */}
+            <Suspense
+              fallback={<PageLoadingSpinner show={true} color="#fff" />}
+            >
+              <OrderPlacedSuccssfully />
+            </Suspense>
           </Route>
           <Route path="/account/my-orders">
             <Header
@@ -182,8 +192,11 @@ const App = () => {
               basketItems={localBasketAfterRefrsh?.length}
             />
             <HeaderSecondary />
-            <MyOrders />
-            {/* <Copyright /> */}
+            <Suspense
+              fallback={<PageLoadingSpinner show={true} color="#fff" />}
+            >
+              <MyOrders />
+            </Suspense>
           </Route>
         </Switch>
         <CssBaseline />

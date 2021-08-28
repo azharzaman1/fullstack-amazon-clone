@@ -252,7 +252,13 @@ const CheckoutPayment = () => {
             </div>
           </Grid>
           <Grid item md />
-          <Grid item xs={12} md={4} className="checkoutPayment__right">
+          <Grid
+            item
+            xs={12}
+            md={4}
+            style={{ marginTop: !isDesktop && 40 }}
+            className="checkoutPayment__right"
+          >
             <h3>Please enter your Card details</h3>
             <p>
               As this is a demo app, no money will be deducted from your
