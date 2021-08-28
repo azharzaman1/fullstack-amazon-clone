@@ -191,7 +191,7 @@ const Header = ({ displayName, countryName, basketItems }) => {
   );
 };
 
-const LoginDropDown = ({ closeLoginDropDown }) => {
+export const LoginDropDown = ({ closeLoginDropDown }) => {
   const currentUser = useSelector(selectUser);
 
   const signoutHandler = () => {

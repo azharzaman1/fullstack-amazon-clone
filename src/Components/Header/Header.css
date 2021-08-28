@@ -171,6 +171,19 @@
   z-index: 1111111;
 }
 
+@media only screen and (max-width: 600px) {
+  .loginDropDown {
+    position: absolute;
+    top: 6.15rem;
+    right: 0rem;
+    width: 375px;
+    max-width: 97%;
+    height: 290px;
+    padding: 1rem;
+    z-index: 1111111;
+  }
+}
+
 .loginDropDown > .loginDropDown__top {
   align-items: center;
   border-bottom: 1px solid lightgray;

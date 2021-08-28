@@ -53,25 +53,38 @@ const HeroSection = () => {
           size="small"
           className="slider__controller slider__controllerBack"
         >
-          <img
+          {/* <img
             className="slider__arrows"
             src={BackArrow}
             width="20px"
             alt="<"
-          />
+          /> */}
+          <svg
+            width="24"
+            height="24"
+            fill="#fff"
+            xmlns="http://www.w3.org/2000/svg"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+          >
+            <path d="M20 .755l-14.374 11.245 14.374 11.219-.619.781-15.381-12 15.391-12 .609.755z" />
+          </svg>
         </Button>
         <img loading="lazy" src={sliderImageSetter(sliderImages)} />
         <Button
           onClick={increment}
           className="slider__controller slider__controllerForw"
         >
-          <img
-            loading="lazy"
-            className="slider__arrows"
-            src={ForwardArrow}
-            width="20px"
-            alt=">"
-          />
+          <svg
+            width="24"
+            height="24"
+            fill="#fff"
+            xmlns="http://www.w3.org/2000/svg"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+          >
+            <path d="M4 .755l14.374 11.245-14.374 11.219.619.781 15.381-12-15.391-12-.609.755z" />
+          </svg>
         </Button>
       </div>
       <div className="slider__fade"></div>

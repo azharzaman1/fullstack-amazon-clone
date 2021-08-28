@@ -2,13 +2,14 @@ import React from "react";
 import Category from "./Category";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Grid } from "@material-ui/core";
+import { Grid, useMediaQuery } from "@material-ui/core";
 import { selectUser } from "../../redux/slices/userSlice";
 import "./Categories.css";
 import CategoriesRow from "./CategoriesRow";
 
 const CategoriesRow1 = () => {
   const currentUser = useSelector(selectUser);
+  const isBelow500px = useMediaQuery("(max-width:500px)");
 
   return (
     <CategoriesRow className="categories__row1">
@@ -45,7 +46,7 @@ const CategoriesRow1 = () => {
       {!currentUser && (
         <Grid
           xs={12}
-          sm={6}
+          xs={isBelow500px ? 12 : 6}
           md={3}
           item
           className="signin__promotion flexColumn"

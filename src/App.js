@@ -127,7 +127,7 @@ const App = () => {
               displayName={fetchedData?.displayName}
               basketItems={localBasketAfterRefrsh?.length}
             />
-            <HeaderSecondary />
+            <HeaderSecondary displayName={fetchedData?.displayName} />
             <Homepage />
             <Suspense fallback={<span>.</span>}>
               <Footer />
@@ -140,7 +140,7 @@ const App = () => {
               displayName={fetchedData?.displayName}
               basketItems={localBasketAfterRefrsh?.length}
             />
-            <HeaderSecondary />
+            <HeaderSecondary displayName={fetchedData?.displayName} />
             <ShopingCart />
           </Route>
           <Route path="/auth/register">
@@ -193,7 +193,7 @@ const App = () => {
               displayName={fetchedData?.displayName}
               basketItems={localBasketAfterRefrsh?.length}
             />
-            <HeaderSecondary />
+            <HeaderSecondary displayName={fetchedData?.displayName} />
             <Suspense
               fallback={<PageLoadingSpinner show={true} color="#fff" />}
             >
