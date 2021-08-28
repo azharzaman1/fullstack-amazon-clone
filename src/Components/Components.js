@@ -24,7 +24,7 @@ export const PageLoadingSpinner = ({ show, position, color }) => {
               : ""
           }`}
         >
-          <div class={`lds-ring`}>
+          <div className={`lds-ring`}>
             <div
               style={{
                 borderColor: `${

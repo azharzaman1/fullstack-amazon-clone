@@ -6,9 +6,7 @@ import { Grid, useMediaQuery, useTheme } from "@material-ui/core";
 const Footer = () => {
   const theme = useTheme();
   const isDesktop = useMediaQuery("(min-width:960px)");
-  const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
-  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
-  const isBelow500px = useMediaQuery("(max-width:500px)");
+
   return (
     <div className="footer">
       <Link to="scrollToTop__dest" smooth={true} duration={1000}>
@@ -24,7 +22,7 @@ const Footer = () => {
       >
         <Grid
           container
-          justifyContent="center"
+          justifyContent="space-between"
           className="footerTop__linksSection"
         >
           <Grid

@@ -47,7 +47,6 @@ const Header = ({ displayName, countryName, basketItems }) => {
 
   const theme = useTheme();
   const isDesktop = useMediaQuery("(min-width:960px)");
-  const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
 
   return (

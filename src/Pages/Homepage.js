@@ -2,7 +2,6 @@ import React, { Suspense } from "react";
 import HeroSection from "../Components/HeroSection";
 import CategoriesRow1 from "../Components/Categories/CategoriesRow1";
 import Product from "../Components/Products/Product";
-import Slider from "../Components/Products/Slider";
 import DoneIcon from "@material-ui/icons/Done";
 import CardGiftcardIcon from "@material-ui/icons/CardGiftcard";
 import useStateValue from "../Files/StateProvider";
@@ -33,18 +32,19 @@ import {
   HomeapageProductsRow1,
   HomeapageProductsRow2,
 } from "../Files/ProductsData";
-import { Heading } from "../Components/Components";
+import { Heading, PageLoadingSpinner } from "../Components/Components";
 import "./Homepage.css";
 import "../Components/Products/CartLiveStatusBar.css";
 import {
   HomepageFeaturesSlider1Items,
   HomepageProductsSlider1Items,
 } from "../Files/ProductsSlidersData";
-import { v4 as uuid } from "uuid";
 
 const CategoriesRow = React.lazy(() =>
   import("../Components/Categories/CategoriesRow")
 );
+
+const Slider = React.lazy(() => import("../Components/Products/Slider"));
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -58,9 +58,7 @@ const Homepage = () => {
   const [{ basket }] = useStateValue();
 
   const theme = useTheme();
-  const isDesktop = useMediaQuery("(min-width:960px)");
   const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
-  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
   const isBelow500px = useMediaQuery("(max-width:500px)");
 
   return (
@@ -70,7 +68,7 @@ const Homepage = () => {
 
         <CategoriesRow1 />
 
-        <Suspense fallback={<h1>Loading ...</h1>}>
+        <Suspense fallback={<PageLoadingSpinner show={true} />}>
           <CategoriesRow
             className={`categories__row2 ${
               isTablet && "categories__row2Tablet"
@@ -118,30 +116,32 @@ const Homepage = () => {
             />
           ))}
         </ProductsRow>
+        <Suspense fallback={<PageLoadingSpinner show={true} />}>
+          <Slider
+            sliderSpecificClass="topSellers__productsSlider"
+            sliderContentSpecificClass="sliderTopSeller__content"
+            title="Amazon Top Sellers"
+            linkText="Shop now"
+            sliderUniqueId="1"
+          >
+            {HomepageProductsSlider1Items?.map((item) => (
+              <ProductsSliderProduct key={item.imgUrl} imgUrl={item.imgUrl} />
+            ))}
+          </Slider>
+        </Suspense>
+        <Suspense fallback={<PageLoadingSpinner show={true} />}>
+          <Slider
+            title="Discover Amazon"
+            linkText="Click to learn more"
+            sliderUniqueId="2"
+          >
+            {HomepageFeaturesSlider1Items?.map((item) => (
+              <ProductsSliderProduct key={item.imgUrl} imgUrl={item.imgUrl} />
+            ))}
+          </Slider>
+        </Suspense>
 
-        <Slider
-          sliderSpecificClass="topSellers__productsSlider"
-          sliderContentSpecificClass="sliderTopSeller__content"
-          title="Amazon Top Sellers"
-          linkText="Shop now"
-          sliderUniqueId="1"
-        >
-          {HomepageProductsSlider1Items?.map((item) => (
-            <ProductsSliderProduct key={item.imgUrl} imgUrl={item.imgUrl} />
-          ))}
-        </Slider>
-
-        <Slider
-          title="Discover Amazon"
-          linkText="Click to learn more"
-          sliderUniqueId="2"
-        >
-          {HomepageFeaturesSlider1Items?.map((item) => (
-            <ProductsSliderProduct key={item.imgUrl} imgUrl={item.imgUrl} />
-          ))}
-        </Slider>
-
-        <Suspense fallback={<h1>Loading ...</h1>}>
+        <Suspense fallback={<PageLoadingSpinner show={true} />}>
           <CategoriesRow className={`categories__row3`}>
             {HomeapageCatsRow3?.map((cat) => (
               <Category
@@ -153,7 +153,7 @@ const Homepage = () => {
             ))}
           </CategoriesRow>
         </Suspense>
-        <Suspense fallback={<h1>Loading ...</h1>}>
+        <Suspense fallback={<PageLoadingSpinner show={true} />}>
           <CategoriesRow className={`categories__row4 `}>
             {HomeapageCatsRow4?.map((cat) => (
               <Category
