@@ -44,7 +44,7 @@ const CategoriesRow1 = () => {
       />
       {!currentUser && (
         <Grid
-          xs={6}
+          xs={12}
           sm={6}
           md={3}
           item

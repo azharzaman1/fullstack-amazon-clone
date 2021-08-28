@@ -4,6 +4,12 @@
   padding: 0 2rem;
 }
 
+@media only screen and (max-width: 500px) {
+  .livebasketbar__container {
+    padding: 0 0.5rem;
+  }
+}
+
 .basketLive__statusBar {
   border: 1px solid rgb(177, 177, 177);
   margin: 1rem 0;

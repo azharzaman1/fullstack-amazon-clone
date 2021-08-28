@@ -9,7 +9,6 @@ import {
   Select,
   makeStyles,
   Grid,
-  useTheme,
   useMediaQuery,
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
