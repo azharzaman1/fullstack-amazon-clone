@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import AmazonLogo from "../files/logo.png";
 import EnglishFlag from "../files/english.png";
+import Dropdown from "./Dropdown";
+import useStateValue from "../../Files/StateProvider";
 import {
   KeyboardArrowDown,
   ShoppingBasket,
   PersonPinCircle,
 } from "@material-ui/icons";
-import Dropdown from "./Dropdown";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import {
   AppBar,
   Grid,
@@ -17,10 +16,11 @@ import {
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
-import "./Header.css";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { auth } from "../../Files/firebase";
 import { selectUser } from "../../redux/slices/userSlice";
-import useStateValue from "../../Files/StateProvider";
+import "./Header.css";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
