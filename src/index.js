@@ -5,7 +5,6 @@ import { StateProvider } from "./Files/StateProvider";
 import { initialState } from "./Files/reducer";
 import reducer from "./Files/reducer";
 import { Provider } from "react-redux";
-// import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store";
 import "./index.css";
 import ThemeWrapper from "./Files/Mui/ThemeWrapper";

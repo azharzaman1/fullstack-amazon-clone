@@ -234,6 +234,11 @@
     font-size: 15px;
   }
 
+  .shopingCart__product {
+    padding: 0.85rem 0.2rem;
+    margin-right: 0px;
+  }
+
   .shopingCart__emptyTagline {
     font-size: 25px;
   }
