@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import AmazonLogo from "./logo.png";
-import "./CheckoutPayment.css";
-import { db } from "../Files/firebase";
-import useStateValue from "../Files/StateProvider";
 import {
   FormControl,
   Grid,
@@ -21,9 +17,13 @@ import {
   CardCvcElement,
 } from "@stripe/react-stripe-js";
 import { useSelector } from "react-redux";
+import firebase from "firebase";
+import AmazonLogo from "./logo.png";
+import "./CheckoutPayment.css";
+import { db } from "../Files/firebase";
+import useStateValue from "../Files/StateProvider";
 import { selectFetchedUserDetails } from "../redux/slices/fetchedDetailsSlice";
 import { selectUser } from "../redux/slices/userSlice";
-import firebase from "firebase";
 
 const CheckoutPayment = () => {
   const currentUser = useSelector(selectUser);
@@ -40,8 +40,6 @@ const CheckoutPayment = () => {
   const [sortedBasket, setSortedBasket] = useState([]);
   const [termsOfUse, setTermsOfUse] = useState(false);
   const [privacyNotice, setPrivacyNotice] = useState(false);
-  const [setOrderPlacedSuccesfully, setSetOrderPlacedSuccesfully] =
-    useState(false);
   const [processing, setProcessing] = useState(false);
 
   const history = useHistory();

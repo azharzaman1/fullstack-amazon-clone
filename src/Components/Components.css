@@ -1,11 +1,11 @@
 .heading__type1 {
-  font-size: 19px;
+  font-size: calc(13px + 0.35vw);
   font-family: AmazonEmber500;
   color: #0f1111;
 }
 
 .heading__type2 {
-  font-size: 21px;
+  font-size: calc(16px + 0.35vw);
   font-family: AmazonEmber500;
   color: #444444;
 }

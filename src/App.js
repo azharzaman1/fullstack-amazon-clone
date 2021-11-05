@@ -119,7 +119,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="app">
+      <div className="app relative">
         <Switch>
           <Route exact path="/">
             <Header
@@ -129,10 +129,6 @@ const App = () => {
             />
             <HeaderSecondary displayName={fetchedData?.displayName} />
             <Homepage />
-            <Suspense fallback={<span>.</span>}>
-              <Footer />
-            </Suspense>
-            <CopyrightFooter />
           </Route>
           <Route path="/cart">
             <Header

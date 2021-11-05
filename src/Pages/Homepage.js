@@ -11,13 +11,7 @@ import {
   selectUser,
   SET_REDIRECT_TO_CHECKOUT,
 } from "../redux/slices/userSlice";
-import {
-  Container,
-  makeStyles,
-  useTheme,
-  useMediaQuery,
-  Grid,
-} from "@material-ui/core";
+import { makeStyles, useTheme, useMediaQuery, Grid } from "@material-ui/core";
 import Category from "../Components/Categories/Category";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,6 +33,9 @@ import {
   HomepageFeaturesSlider1Items,
   HomepageProductsSlider1Items,
 } from "../Files/ProductsSlidersData";
+import { MainContainer } from "../Files/Mui/Styled/MuiStyled";
+import Footer from "../Components/Footer";
+import CopyrightFooter from "../Components/CopyrightFooter/CopyrightFooter";
 
 const CategoriesRow = React.lazy(() =>
   import("../Components/Categories/CategoriesRow")
@@ -46,15 +43,7 @@ const CategoriesRow = React.lazy(() =>
 
 const Slider = React.lazy(() => import("../Components/Products/Slider"));
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    padding: "0",
-    backgroundColor: "#eaeded",
-  },
-}));
-
 const Homepage = () => {
-  const c = useStyles();
   const [{ basket }] = useStateValue();
 
   const theme = useTheme();
@@ -63,109 +52,110 @@ const Homepage = () => {
 
   return (
     <div className="home">
-      <Container maxWidth="lg" className={`${c.container} homepageContainer`}>
-        <HeroSection />
+      <HeroSection />
+      <div className="homepageContainer">
+        <MainContainer maxWidth={false}>
+          <CategoriesRow1 />
 
-        <CategoriesRow1 />
+          <Suspense fallback={<PageLoadingSpinner show={true} />}>
+            <CategoriesRow className={`categories__row2`}>
+              {HomeapageCatsRow2?.map((cat) => (
+                <Category
+                  key={cat.id}
+                  categotyTitle={cat.title}
+                  imgUrl={cat.banner}
+                  linkText={cat.linkText ? cat.linkText : "Shop Now"}
+                />
+              ))}
+            </CategoriesRow>
+          </Suspense>
 
-        <Suspense fallback={<PageLoadingSpinner show={true} />}>
-          <CategoriesRow
-            className={`categories__row2 ${
-              isTablet && "categories__row2Tablet"
-            } ${isBelow500px && "categories__row2Mobile"}`}
-          >
-            {HomeapageCatsRow2?.map((cat) => (
-              <Category
-                key={cat.id}
-                categotyTitle={cat.title}
-                imgUrl={cat.banner}
-                linkText={cat.linkText ? cat.linkText : "Shop Now"}
+          <Heading className="sectionHeading">Some trending from tech</Heading>
+
+          {basket.length > 0 && (
+            <div className="livebasketbar__container">
+              <BasketLiveStatusBar />
+            </div>
+          )}
+
+          <ProductsRow className="products__row1">
+            {HomeapageProductsRow1?.map((product) => (
+              <Product
+                id={product.id}
+                title={product.title}
+                price={product.price}
+                imgUrl={product.imgUrl}
+                rating={product.rating}
               />
             ))}
-          </CategoriesRow>
-        </Suspense>
+          </ProductsRow>
 
-        <Heading className="sectionHeading">Some trending from tech</Heading>
-
-        {basket.length > 0 && (
-          <div className="livebasketbar__container">
-            <BasketLiveStatusBar />
-          </div>
-        )}
-
-        <ProductsRow className="products__row1">
-          {HomeapageProductsRow1?.map((product) => (
-            <Product
-              id={product.id}
-              title={product.title}
-              price={product.price}
-              imgUrl={product.imgUrl}
-              rating={product.rating}
-            />
-          ))}
-        </ProductsRow>
-
-        <ProductsRow className="products__row2">
-          {HomeapageProductsRow2?.map((product) => (
-            <Product
-              id={product.id}
-              title={product.title}
-              price={product.price}
-              imgUrl={product.imgUrl}
-              rating={product.rating}
-            />
-          ))}
-        </ProductsRow>
-        <Suspense fallback={<PageLoadingSpinner show={true} />}>
-          <Slider
-            sliderSpecificClass="topSellers__productsSlider"
-            sliderContentSpecificClass="sliderTopSeller__content"
-            title="Amazon Top Sellers"
-            linkText="Shop now"
-            sliderUniqueId="1"
-          >
-            {HomepageProductsSlider1Items?.map((item) => (
-              <ProductsSliderProduct key={item.imgUrl} imgUrl={item.imgUrl} />
-            ))}
-          </Slider>
-        </Suspense>
-        <Suspense fallback={<PageLoadingSpinner show={true} />}>
-          <Slider
-            title="Discover Amazon"
-            linkText="Click to learn more"
-            sliderUniqueId="2"
-          >
-            {HomepageFeaturesSlider1Items?.map((item) => (
-              <ProductsSliderProduct key={item.imgUrl} imgUrl={item.imgUrl} />
-            ))}
-          </Slider>
-        </Suspense>
-
-        <Suspense fallback={<PageLoadingSpinner show={true} />}>
-          <CategoriesRow className={`categories__row3`}>
-            {HomeapageCatsRow3?.map((cat) => (
-              <Category
-                key={cat.id}
-                categotyTitle={cat.title}
-                imgUrl={cat.banner}
-                linkText={cat.linkText ? cat.linkText : "Shop Now"}
+          <ProductsRow className="products__row2">
+            {HomeapageProductsRow2?.map((product) => (
+              <Product
+                id={product.id}
+                title={product.title}
+                price={product.price}
+                imgUrl={product.imgUrl}
+                rating={product.rating}
               />
             ))}
-          </CategoriesRow>
+          </ProductsRow>
+          <Suspense fallback={<PageLoadingSpinner show={true} />}>
+            <Slider
+              sliderSpecificClass="topSellers__productsSlider"
+              sliderContentSpecificClass="sliderTopSeller__content"
+              title="Amazon Top Sellers"
+              linkText="Shop now"
+              sliderUniqueId="1"
+            >
+              {HomepageProductsSlider1Items?.map((item) => (
+                <ProductsSliderProduct key={item.imgUrl} imgUrl={item.imgUrl} />
+              ))}
+            </Slider>
+          </Suspense>
+          <Suspense fallback={<PageLoadingSpinner show={true} />}>
+            <Slider
+              title="Discover Amazon"
+              linkText="Click to learn more"
+              sliderUniqueId="2"
+            >
+              {HomepageFeaturesSlider1Items?.map((item) => (
+                <ProductsSliderProduct key={item.imgUrl} imgUrl={item.imgUrl} />
+              ))}
+            </Slider>
+          </Suspense>
+
+          <Suspense fallback={<PageLoadingSpinner show={true} />}>
+            <CategoriesRow className={`categories__row3`}>
+              {HomeapageCatsRow3?.map((cat) => (
+                <Category
+                  key={cat.id}
+                  categotyTitle={cat.title}
+                  imgUrl={cat.banner}
+                  linkText={cat.linkText ? cat.linkText : "Shop Now"}
+                />
+              ))}
+            </CategoriesRow>
+          </Suspense>
+          <Suspense fallback={<PageLoadingSpinner show={true} />}>
+            <CategoriesRow className={`categories__row4 `}>
+              {HomeapageCatsRow4?.map((cat) => (
+                <Category
+                  key={cat.id}
+                  categotyTitle={cat.title}
+                  imgUrl={cat.banner}
+                  linkText={cat.linkText ? cat.linkText : "Shop Now"}
+                />
+              ))}
+            </CategoriesRow>
+          </Suspense>
+        </MainContainer>
+        <Suspense fallback={<span>.</span>}>
+          <Footer />
         </Suspense>
-        <Suspense fallback={<PageLoadingSpinner show={true} />}>
-          <CategoriesRow className={`categories__row4 `}>
-            {HomeapageCatsRow4?.map((cat) => (
-              <Category
-                key={cat.id}
-                categotyTitle={cat.title}
-                imgUrl={cat.banner}
-                linkText={cat.linkText ? cat.linkText : "Shop Now"}
-              />
-            ))}
-          </CategoriesRow>
-        </Suspense>
-      </Container>
+        <CopyrightFooter />
+      </div>
     </div>
   );
 };
