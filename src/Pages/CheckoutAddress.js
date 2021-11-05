@@ -57,7 +57,7 @@ const Checkout = () => {
   }, [currentUser]);
 
   useEffect(() => {
-    const getCountriesData = async () => {
+    (async () => {
       await fetch("https://disease.sh/v3/covid-19/countries")
         .then((response) => response.json())
         .then((data) => {
@@ -73,8 +73,7 @@ const Checkout = () => {
           );
           setCountryNames(countries);
         });
-    };
-    getCountriesData();
+    })();
   }, []);
 
   const onCountryChange = (selectedCountryFromList) => {

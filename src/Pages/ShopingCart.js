@@ -17,22 +17,15 @@ import { SET_REDIRECT_TO_CHECKOUT } from "../redux/slices/userSlice";
 import { selectUser } from "../redux/slices/userSlice";
 import useStateValue from "../Files/StateProvider";
 import "./ShopingCart.css";
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    padding: 0,
-  },
-}));
+import { MainContainer } from "../Files/Mui/Styled/MuiStyled";
 
 const ShopingCart = () => {
-  const c = useStyles();
   const [{ basket }, dispatch] = useStateValue();
   const [localBasket, setLocalBasket] = useState(
     localStorage.getItem("basket")
       ? JSON.parse(localStorage.getItem("basket"))
       : basket
   );
-  // const [localBasket, setLocalBasket] = useState(basket);
 
   const [sortedBasket, setSortedBasket] = useState([]);
 
@@ -58,7 +51,7 @@ const ShopingCart = () => {
   const isDesktop = useMediaQuery("(min-width:960px)");
 
   return (
-    <Container maxWidth="lg" className={`shopingCart ${c.container}`}>
+    <MainContainer maxWidth={false} className={`shopingCart`}>
       <div id="just-extra-spacing-compensation" style={{ padding: 8 }}>
         <Grid
           container
@@ -130,7 +123,7 @@ const ShopingCart = () => {
           </Grid>
         </Grid>
       </div>
-    </Container>
+    </MainContainer>
   );
 };
 

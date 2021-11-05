@@ -1,11 +1,6 @@
-.my__orders {
-  padding: 0 8px !important;
-}
-
 .myOrders__content {
   background-color: white;
-  box-shadow: 1.5px 1.5px 10px 0px rgba(0, 0, 0, 0.15),
-    -1px -1px 10px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: 1.5px 1.5px 10px 0px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   margin: 1rem 0;
 }

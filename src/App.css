@@ -68,3 +68,7 @@ span.boldText {
   font-size: 14px;
   font-weight: 400;
 }
+
+.relative {
+  position: relative;
+}
