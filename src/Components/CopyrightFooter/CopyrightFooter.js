@@ -49,7 +49,7 @@ const CopyrightFooter = () => {
             icon={<GitHub fontSize="small" />}
           />
           <MuiChip
-            link="https://twitter.com/DrAzharZaman"
+            link="https://www.linkedin.com/in/azhar-zaman-06b454221"
             title="LinkedIn"
             icon={<LinkedIn fontSize="small" />}
           />

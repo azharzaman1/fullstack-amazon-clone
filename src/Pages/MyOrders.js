@@ -4,6 +4,7 @@ import { selectUser } from "../redux/slices/userSlice";
 import { useSelector } from "react-redux";
 import { Container, Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import "./MyOrders.css";
+import { MainContainer } from "../Files/Mui/Styled/MuiStyled";
 
 const MyOrders = () => {
   const currentUser = useSelector(selectUser);
@@ -24,7 +25,7 @@ const MyOrders = () => {
   }, [currentUser]);
 
   return (
-    <Container maxWidth="lg" className="my__orders">
+    <MainContainer maxWidth={false} className="my__orders">
       <Grid container direction="column" className="myOrders__content">
         <Grid item className="myOrders__header">
           <h3>My Orders</h3>
@@ -52,7 +53,7 @@ const MyOrders = () => {
           ))}
         </Grid>
       </Grid>
-    </Container>
+    </MainContainer>
   );
 };
 
