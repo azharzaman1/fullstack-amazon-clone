@@ -1,12 +1,6 @@
 import React from "react";
 import { Grid, makeStyles, Chip } from "@material-ui/core";
-import {
-  Facebook,
-  GitHub,
-  Twitter,
-  Language,
-  LinkedIn,
-} from "@material-ui/icons";
+import { GitHub, Twitter, Language, LinkedIn } from "@material-ui/icons";
 
 import "./CopyrightFooter.css";
 
