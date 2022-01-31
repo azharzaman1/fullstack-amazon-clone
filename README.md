@@ -2,7 +2,7 @@
 Built fully functional Amazon clone with all required
 eCommerce features with ReactJs using latest techs like Material UI, Stripejs etc.
 
-Live link: https://azhar-amazonclone.ga
+Live link: https://amazondemo.azharzaman.com/
 Portfolio link: https://azharzaman.com
 
 ## Used technologies:
