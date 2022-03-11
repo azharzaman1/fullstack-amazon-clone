@@ -2,16 +2,22 @@
 Built fully functional Amazon clone with all required
 eCommerce features with ReactJs using latest techs like Material UI, Stripejs etc.
 
-Live link: https://amazondemo.azharzaman.com/
-Portfolio link: https://azharzaman.com
+<b>Live link:</b> https://amazondemo.azharzaman.com/ <br />
+<b>Portfolio link:</b> https://azharzaman.com
 
 ## Used technologies:
-• ReactJs <br/>
-• Javascript (es6+) <br/>
-• Material UI (components library and responsiveness) <br/>
-• Redux(toolkit) - Context Api (state management) <br/>
-• Google Firebase (back-end - database - authentication) <br/>
-• StripeJs (payments processing) <br/>
+• Javascript(es6+) <br/>
+• ReactJs
+
+### UI & Styling
+• Mui(Material UI) <br/>
+• Redux - Context Api (state management) <br/>
+• material-icons <br/>
+
+### Backend
+• Google Firebase <br/>
+• Firebase Authentication <br/>
+• Firebase Firestore (realtime) <br/>
 
 There is always a room for improvement, 
 contribution would be a great favour.
